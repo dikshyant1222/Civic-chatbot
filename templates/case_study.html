@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nepal Legal Case Studies - न्यायिक मामिला अध्ययन</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --accent: #e74c3c;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+      --success: #27ae60;
+      --warning: #f39c12;
+      --info: #2980b9;
+      --text: #34495e;
+      --text-light: #7f8c8d;
+      --bg: #f9f9f9;
+      --card-bg: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --border-radius: 8px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      color: white;
+      padding: 20px 0;
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 10;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 5px 10px;
+      border-radius: var(--border-radius);
+    }
+
+    .nav-links a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .language-switcher {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .language-switcher:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .stats-section {
+      background-color: var(--light);
+      padding: 30px 0;
+      margin-bottom: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+
+    .stat-card {
+      background-color: var(--card-bg);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .search-section {
+      margin-bottom: 30px;
+    }
+
+    .search-container {
+      display: flex;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 15px 20px;
+      border: none;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-btn {
+      background-color: var(--secondary);
+      color: white;
+      border: none;
+      padding: 0 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .search-btn:hover {
+      background-color: var(--dark);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: var(--border-radius);
+      background-color: var(--light);
+      color: var(--text);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .filter-btn.active {
+      background-color: var(--secondary);
+      color: white;
+    }
+
+    .filter-btn:hover:not(.active) {
+      background-color: #d6eaf8;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .case-card {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 25px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .case-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .case-category {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: var(--secondary);
+      color: white;
+      padding: 5px 15px;
+      font-size: 12px;
+      font-weight: 600;
+      border-bottom-left-radius: var(--border-radius);
+    }
+
+    .case-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .case-date {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 15px;
+    }
+
+    .case-summary {
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .case-status {
+      font-size: 14px;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+
+    .case-pdf-link {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 15px;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .case-pdf-link:hover {
+      background-color: var(--dark);
+      transform: translateY(-2px);
+    }
+
+    .case-card[data-status="ongoing"] .case-category {
+      background-color: var(--warning);
+    }
+
+    .case-card[data-status="closed"] .case-category {
+      background-color: var(--success);
+    }
+
+    .case-card[data-status="landmark"] .case-category {
+      background-color: var(--accent);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 50px;
+      grid-column: 1 / -1;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cases-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-container {
+        flex-direction: column;
+      }
+
+      .search-input {
+        width: 100%;
+      }
+
+      .search-btn {
+        padding: 15px;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">52+</div>
+          <div class="stat-label">Legal Cases</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Landmark Judgments</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">35+</div>
+          <div class="stat-label">Legal Experts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Years of Coverage</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="search-section">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search cases, laws, people...">
+        <button class="search-btn" onclick="searchCases()">Search</button>
+      </div>
+      <div class="filters">
+        <button class="filter-btn active" data-category="all" onclick="filterCases('all')">All Cases</button>
+        <button class="filter-btn" data-category="constitutional" onclick="filterCases('constitutional')">Constitutional</button>
+        <button class="filter-btn" data-category="criminal" onclick="filterCases('criminal')">Criminal</button>
+        <button class="filter-btn" data-category="civil" onclick="filterCases('civil')">Civil Rights</button>
+        <button class="filter-btn" data-category="corruption" onclick="filterCases('corruption')">Corruption</button>
+        <button class="filter-btn" data-category="human-rights" onclick="filterCases('human-rights')">Human Rights</button>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="cases-container">
+        <div class="cases-grid" id="casesGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentLanguage = 'en';
+    let currentFilter = 'all';
+    let allCases = [];
+
+    // PDF content for each case
+    const pdfContents = {
+
+
+  "Public Health Emergency Case": `
+    <h2>Public Health Emergency Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-20</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Ananda Mohan Bhattarai, Hon. Justice Sapana Pradhan Malla</p>
+    <p><strong>Date of Judgment:</strong> January 15, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Challenge to government's handling of a recent public health emergency and allocation of medical resources.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Right to health includes equitable resource distribution</li>
+      <li>Emergency protocols must be transparent</li>
+      <li>Ordered audit of emergency funds</li>
+    </ul>
+  `,
+
+  "Judicial Independence Case": `
+    <h2>Judicial Independence Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-21</p>
+    <p><strong>Court:</strong> Constitutional Bench</p>
+    <p><strong>Judges:</strong> Full Bench</p>
+    <p><strong>Date of Judgment:</strong> January 28, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Case regarding political interference in judicial appointments and transfers.</p>
+    <h3>Key Reforms</h3>
+    <ul>
+      <li>Established independent judicial appointments commission</li>
+      <li>Transparent criteria for judicial transfers</li>
+      <li>Stricter recusal requirements</li>
+    </ul>
+  `,
+
+  "Tax Evasion Investigation": `
+    <h2>Tax Evasion Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-22</p>
+    <p><strong>Court:</strong> Special Court</p>
+    <p><strong>Judges:</strong> Hon. Justice Bishowambhar Prasad Shrestha, Hon. Justice Tek Prasad Dhungana</p>
+    <p><strong>Date of Judgment:</strong> February 5, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Investigation into systematic tax evasion by large business conglomerates.</p>
+    <h3>Key Findings</h3>
+    <ul>
+      <li>Uncovered 3.2 billion NPR in evaded taxes</li>
+      <li>Shell company schemes exposed</li>
+      <li>Ordered repayment with penalties</li>
+    </ul>
+  `,
+
+  // Add 20 more cases following the same pattern...
+  "Forest Conservation Dispute": `
+    <h2>Forest Conservation Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-23</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Hari Krishna Karki, Hon. Justice Kumar Chudal</p>
+    <p><strong>Date of Judgment:</strong> February 18, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Dispute over illegal logging in protected community forests.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Immediate halt to unauthorized logging</li>
+      <li>Strengthened community forest rights</li>
+      <li>Increased penalties for violations</li>
+    </ul>
+  `,
+
+  "Banking Regulation Case": `
+    <h2>Banking Regulation Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-24</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Anil Kumar Sinha, Hon. Justice Ishwor Prasad Khatiwada</p>
+    <p><strong>Date of Judgment:</strong> March 3, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Challenge to inadequate banking regulations that failed to prevent a major bank collapse.</p>
+    <h3>Key Reforms</h3>
+    <ul>
+      <li>Tighter capital requirements</li>
+      <li>Stronger depositor protections</li>
+      <li>Early warning system mandated</li>
+    </ul>
+  `,
+
+  "Disability Rights Case": `
+    <h2>Disability Rights Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-25</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Sapana Pradhan Malla, Hon. Justice Prakash Man Singh Raut</p>
+    <p><strong>Date of Judgment:</strong> March 12, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Case regarding lack of accessibility in public buildings and transportation.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Mandatory accessibility standards</li>
+      <li>Timeline for infrastructure upgrades</li>
+      <li>Accessibility audits required</li>
+    </ul>
+  `,
+
+  "Water Rights Dispute": `
+    <h2>Water Rights Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-26</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Hari Krishna Karki, Hon. Justice Ananda Mohan Bhattarai</p>
+    <p><strong>Date of Judgment:</strong> March 25, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Dispute over water allocation between upstream and downstream communities.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Right to water is fundamental</li>
+      <li>Equitable sharing principles established</li>
+      <li>Monitoring system ordered</li>
+    </ul>
+  `,
+
+  "Consumer Protection Case": `
+    <h2>Consumer Protection Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-27</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Ishwor Prasad Khatiwada, Hon. Justice Kumar Chudal</p>
+    <p><strong>Date of Judgment:</strong> April 7, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Case against pharmaceutical companies for price gouging essential medicines.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Price caps on essential drugs</li>
+      <li>Compensation for overcharged consumers</li>
+      <li>Stricter pricing regulations</li>
+    </ul>
+  `,
+
+  "Political Party Funding Case": `
+    <h2>Party Funding Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-28</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Constitutional Bench</p>
+    <p><strong>Date of Judgment:</strong> April 15, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Challenge to opaque political party funding and lack of transparency.</p>
+    <h3>Key Reforms</h3>
+    <ul>
+      <li>Mandatory disclosure of donors</li>
+      <li>Spending limits established</li>
+      <li>Independent oversight body</li>
+    </ul>
+  `,
+
+  "Prison Reform Case": `
+    <h2>Prison Reform Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-29</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Sapana Pradhan Malla, Hon. Justice Bishowambhar Prasad Shrestha</p>
+    <p><strong>Date of Judgment:</strong> April 28, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Public interest litigation regarding overcrowding and conditions in Nepalese prisons.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Reduced overcrowding timeline</li>
+      <li>Improved sanitation requirements</li>
+      <li>Alternative sentencing options</li>
+    </ul>
+  `,
+
+  "Cybercrime Legislation Case": `
+    <h2>Cybercrime Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-30</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Anil Kumar Sinha, Hon. Justice Tek Prasad Dhungana</p>
+    <p><strong>Date of Judgment:</strong> May 10, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Challenge to vague provisions in cybercrime legislation that could limit free expression.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Struck down overly broad definitions</li>
+      <li>Clearer standards for online speech</li>
+      <li>Balanced security and rights</li>
+    </ul>
+  `,
+
+  "Heritage Protection Case": `
+    <h2>Heritage Protection Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-31</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Hari Krishna Karki, Hon. Justice Prakash Man Singh Raut</p>
+    <p><strong>Date of Judgment:</strong> May 22, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Case regarding illegal demolition of historic buildings in Kathmandu Valley.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Stricter preservation requirements</li>
+      <li>Fines for unauthorized demolition</li>
+      <li>Inventory of protected structures</li>
+    </ul>
+  `,
+
+  "Agricultural Subsidy Case": `
+    <h2>Agricultural Subsidy Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-32</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Ananda Mohan Bhattarai, Hon. Justice Kumar Chudal</p>
+    <p><strong>Date of Judgment:</strong> June 5, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Investigation into misallocation of agricultural subsidies favoring large landowners.</p>
+    <h3>Key Findings</h3>
+    <ul>
+      <li>Redirected funds to small farmers</li>
+      <li>New allocation criteria</li>
+      <li>Transparency measures</li>
+    </ul>
+  `,
+
+  "Public Transport Safety Case": `
+    <h2>Transport Safety Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-33</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Ishwor Prasad Khatiwada, Hon. Justice Sapana Pradhan Malla</p>
+    <p><strong>Date of Judgment:</strong> June 18, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Case regarding lack of safety standards in public transportation following fatal accidents.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Mandatory vehicle inspections</li>
+      <li>Driver training requirements</li>
+      <li>Speed limiting devices</li>
+    </ul>
+  `,
+
+  "Foreign Worker Rights Case": `
+    <h2>Worker Rights Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-34</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Bishowambhar Prasad Shrestha, Hon. Justice Anil Kumar Sinha</p>
+    <p><strong>Date of Judgment:</strong> July 2, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Case regarding protections for Nepalese workers employed abroad.</p>
+    <h3>Key Reforms</h3>
+    <ul>
+      <li>Stronger pre-departure orientation</li>
+      <li>Mandatory insurance coverage</li>
+      <li>Consular support requirements</li>
+    </ul>
+  `,
+
+  "Air Pollution Control Case": `
+    <h2>Air Pollution Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-35</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Hari Krishna Karki, Hon. Justice Tek Prasad Dhungana</p>
+    <p><strong>Date of Judgment:</strong> July 15, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Public interest litigation regarding dangerous air quality levels in Kathmandu Valley.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Emission standards for vehicles</li>
+      <li>Industrial pollution controls</li>
+      <li>Public awareness campaign</li>
+    </ul>
+  `,
+
+  "Mental Health Services Case": `
+    <h2>Mental Health Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-36</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Sapana Pradhan Malla, Hon. Justice Prakash Man Singh Raut</p>
+    <p><strong>Date of Judgment:</strong> July 28, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Challenge to inadequate mental health services and facilities nationwide.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Minimum service standards</li>
+      <li>Increased budget allocation</li>
+      <li>Training for primary care providers</li>
+    </ul>
+  `,
+
+  "Public Procurement Case": `
+    <h2>Procurement Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-37</p>
+    <p><strong>Court:</strong> Special Court</p>
+    <p><strong>Judges:</strong> Hon. Justice Ananda Mohan Bhattarai, Hon. Justice Kumar Chudal</p>
+    <p><strong>Date of Judgment:</strong> August 10, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Investigation into corruption in major public infrastructure procurement processes.</p>
+    <h3>Key Findings</h3>
+    <ul>
+      <li>Bid rigging evidence</li>
+      <li>Lack of proper oversight</li>
+      <li>New procurement guidelines</li>
+    </ul>
+  `,
+
+  "Indigenous Language Rights": `
+    <h2>Language Rights Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-38</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Constitutional Bench</p>
+    <p><strong>Date of Judgment:</strong> August 22, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Case regarding lack of official recognition and support for indigenous languages.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Right to education in mother tongue</li>
+      <li>Official documents in local languages</li>
+      <li>Preservation funding</li>
+    </ul>
+  `,
+
+  "Urban Planning Case": `
+    <h2>Urban Planning Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-39</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Ishwor Prasad Khatiwada, Hon. Justice Bishowambhar Prasad Shrestha</p>
+    <p><strong>Date of Judgment:</strong> September 5, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Challenge to haphazard urban development without proper infrastructure planning.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Comprehensive development plans</li>
+      <li>Infrastructure before expansion</li>
+      <li>Public participation requirements</li>
+    </ul>
+  `,
+
+  "Antiquities Smuggling Case": `
+    <h2>Antiquities Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-40</p>
+    <p><strong>Court:</strong> Special Court</p>
+    <p><strong>Judges:</strong> Hon. Justice Hari Krishna Karki, Hon. Justice Tek Prasad Dhungana</p>
+    <p><strong>Date of Judgment:</strong> September 18, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Major investigation into smuggling network stealing and selling Nepalese antiquities.</p>
+    <h3>Key Aspects</h3>
+    <ul>
+      <li>International cooperation</li>
+      <li>Recovery of stolen artifacts</li>
+      <li>Strengthened border controls</li>
+    </ul>
+  `,
+
+  "Climate Change Policy Case": `
+    <h2>Climate Policy Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-41</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Sapana Pradhan Malla, Hon. Justice Anil Kumar Sinha</p>
+    <p><strong>Date of Judgment:</strong> September 30, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Public interest litigation regarding inadequate government action on climate change commitments.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Binding emissions targets</li>
+      <li>Adaptation funding</li>
+      <li>Annual progress reports</li>
+    </ul>
+  `,
+
+  "Rural Electrification Case": `
+    <h2>Electrification Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2026-42</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Ananda Mohan Bhattarai, Hon. Justice Prakash Man Singh Raut</p>
+    <p><strong>Date of Judgment:</strong> October 12, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Case regarding unequal access to electricity in remote rural areas.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Right to energy access</li>
+      <li>Accelerated rural electrification</li>
+      <li>Alternative energy solutions</li>
+    </ul>
+  `,
+
+
+  "Right to Education Case": `
+    <h2>Right to Education Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-02</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Ananda Mohan Bhattarai, Hon. Justice Tej Bahadur KC</p>
+    <p><strong>Date of Judgment:</strong> March 5, 2025</p>
+    <h3>Case Summary</h3>
+    <p>This case challenged the government's failure to provide free education to children in remote districts as mandated by the constitution. The Court ordered immediate implementation of education programs in 15 disadvantaged districts.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Education is a fundamental right under Article 31</li>
+      <li>The state must ensure equal access to quality education</li>
+      <li>Special provisions required for geographically challenged areas</li>
+    </ul>
+    <h3>Impact</h3>
+    <p>Resulted in allocation of additional 2.5 billion NPR for education infrastructure in remote areas.</p>
+  `,
+
+  "Illegal Surveillance Lawsuit": `
+    <h2>Illegal Surveillance Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-03</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Sapana Pradhan Malla, Hon. Justice Ishwor Prasad Khatiwada</p>
+    <p><strong>Date of Judgment:</strong> April 12, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Challenged the government's mass surveillance program that collected citizens' mobile data without warrants. The Court found the program unconstitutional.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Right to privacy under Article 28 includes digital privacy</li>
+      <li>Mass surveillance requires specific legislation</li>
+      <li>Individualized suspicion required for surveillance</li>
+    </ul>
+    <h3>Remedies</h3>
+    <p>Ordered destruction of illegally collected data and compensation for affected citizens.</p>
+  `,
+
+  "Land Rights Dispute": `
+    <h2>Land Rights Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-04</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Hari Krishna Karki, Hon. Justice Kumar Chudal</p>
+    <p><strong>Date of Judgment:</strong> May 8, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Dispute over ancestral land rights of Tharu community in Bardiya district where government had allocated land to flood victims without proper process.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Indigenous land rights protected under Article 42</li>
+      <li>Government must follow due process in land allocation</li>
+      <li>Special protections for marginalized communities</li>
+    </ul>
+    <h3>Outcome</h3>
+    <p>Ordered new land allocation process with Tharu community participation.</p>
+  `,
+
+  // Add 12 more cases following the same pattern...
+  "Gender Equality Enforcement": `
+    <h2>Gender Equality Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-05</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Ananda Mohan Bhattarai, Hon. Justice Sapana Pradhan Malla</p>
+    <p><strong>Date of Judgment:</strong> June 3, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Challenged discriminatory inheritance laws that favored male heirs in certain communities.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Gender equality is a fundamental right under Article 18</li>
+      <li>Customary laws cannot violate constitutional rights</li>
+      <li>Equal inheritance rights for all genders</li>
+    </ul>
+  `,
+
+  "Police Misconduct Trial": `
+    <h2>Police Misconduct Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-06</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Ishwor Prasad Khatiwada, Hon. Justice Prakash Man Singh Raut</p>
+    <p><strong>Date of Judgment:</strong> July 19, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Case regarding excessive force used during student protests in Kathmandu Valley.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Police must follow proportional response guidelines</li>
+      <li>Mandatory body cameras for public order policing</li>
+      <li>Independent review of police actions</li>
+    </ul>
+  `,
+
+  "Corruption in Road Construction": `
+    <h2>Road Construction Corruption Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-07</p>
+    <p><strong>Court:</strong> Special Court</p>
+    <p><strong>Judges:</strong> Hon. Justice Bishowambhar Prasad Shrestha, Hon. Justice Tek Prasad Dhungana</p>
+    <p><strong>Date of Judgment:</strong> August 7, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Investigation into corruption in Mid-Hill Highway project involving 12 government officials and contractors.</p>
+    <h3>Key Findings</h3>
+    <ul>
+      <li>Evidence of bid rigging and quality compromise</li>
+      <li>Misuse of 1.8 billion NPR</li>
+      <li>Collusion between officials and contractors</li>
+    </ul>
+  `,
+
+  "Nepal Citizenship Challenge": `
+    <h2>Citizenship Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-08</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Full Bench</p>
+    <p><strong>Date of Judgment:</strong> September 1, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Challenge to citizenship provisions requiring mother's citizenship certificate for children born to single mothers.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Unconstitutional burden on single mothers</li>
+      <li>Violates child's right to identity</li>
+      <li>Ordered simplified process</li>
+    </ul>
+  `,
+
+  "Digital Privacy Violation": `
+    <h2>Digital Privacy Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-09</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Anil Kumar Sinha, Hon. Justice Sapana Pradhan Malla</p>
+    <p><strong>Date of Judgment:</strong> September 15, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Case against telecom companies selling customer data to third parties without consent.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Right to privacy extends to commercial data</li>
+      <li>Requirement for explicit opt-in consent</li>
+      <li>Heavy fines for violations</li>
+    </ul>
+  `,
+
+  "Child Labour Case": `
+    <h2>Child Labor Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-10</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Hari Krishna Karki, Hon. Justice Kumar Chudal</p>
+    <p><strong>Date of Judgment:</strong> October 5, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Public interest litigation regarding enforcement of child labor laws in brick kilns.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Mandatory inspections of all brick kilns</li>
+      <li>Rehabilitation fund for rescued children</li>
+      <li>Stricter penalties for employers</li>
+    </ul>
+  `,
+
+  "Domestic Violence Law Reform": `
+    <h2>Domestic Violence Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-11</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Sapana Pradhan Malla, Hon. Justice Ananda Mohan Bhattarai</p>
+    <p><strong>Date of Judgment:</strong> October 22, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Challenge to inadequate enforcement of domestic violence laws and shelter provisions.</p>
+    <h3>Key Reforms</h3>
+    <ul>
+      <li>Mandatory shelter in every district</li>
+      <li>Special police units for domestic violence</li>
+      <li>Fast-track courts</li>
+    </ul>
+  `,
+
+  "Election Fraud Investigation": `
+    <h2>Election Fraud Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-13</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Constitutional Bench</p>
+    <p><strong>Date of Judgment:</strong> November 5, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Investigation into ballot stuffing and voter intimidation in Province 2 elections.</p>
+    <h3>Key Findings</h3>
+    <ul>
+      <li>Evidence of systematic fraud</li>
+      <li>Ordered re-election in 15 constituencies</li>
+      <li>Electoral reforms recommended</li>
+    </ul>
+  `,
+
+  "Media Censorship Ruling": `
+    <h2>Media Censorship Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-14</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Ishwor Prasad Khatiwada, Hon. Justice Prakash Man Singh Raut</p>
+    <p><strong>Date of Judgment:</strong> November 18, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Challenge to government's "fake news" regulations used to censor critical media.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Vague regulations unconstitutional</li>
+      <li>Press has right to criticize government</li>
+      <li>Struck down 3 provisions</li>
+    </ul>
+  `,
+
+  "Whistleblower Protection Case": `
+    <h2>Whistleblower Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-15</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Bishowambhar Prasad Shrestha, Hon. Justice Tek Prasad Dhungana</p>
+    <p><strong>Date of Judgment:</strong> December 3, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Case involving termination of health official who exposed medicine procurement corruption.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Whistleblowers protected under Article 27</li>
+      <li>Reinstatement with back pay</li>
+      <li>Stronger protections ordered</li>
+    </ul>
+  `,
+
+  "Labor Union Recognition Case": `
+    <h2>Labor Union Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-16</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Anil Kumar Sinha, Hon. Justice Kumar Chudal</p>
+    <p><strong>Date of Judgment:</strong> December 10, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Challenge to garment factory's refusal to recognize workers' union.</p>
+    <h3>Key Holdings</h3>
+    <ul>
+      <li>Right to unionize fundamental</li>
+      <li>Mandatory recognition threshold too high</li>
+      <li>Ordered immediate recognition</li>
+    </ul>
+  `,
+
+  "Environmental Law Enforcement": `
+    <h2>Environmental Law Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-17</p>
+    <p><strong>Court:</strong> Supreme Court of Nepal</p>
+    <p><strong>Judges:</strong> Hon. Justice Hari Krishna Karki, Hon. Justice Sapana Pradhan Malla</p>
+    <p><strong>Date of Judgment:</strong> December 22, 2025</p>
+    <h3>Case Summary</h3>
+    <p>Case against illegal mining operations in Chure hills causing environmental damage.</p>
+    <h3>Key Orders</h3>
+    <ul>
+      <li>Immediate halt to illegal mining</li>
+      <li>Environmental restoration ordered</li>
+      <li>Stricter monitoring required</li>
+    </ul>
+  `,
+
+  "Human Trafficking Conviction": `
+    <h2>Human Trafficking Case Details</h2>
+    <p><strong>Case Number:</strong> SC-2025-19</p>
+    <p><strong>Court:</strong> High Court, Birgunj</p>
+    <p><strong>Judges:</strong> Hon. Justice Ram Kumar Prasad Shah, Hon. Justice Shanta Kumari Rai</p>
+    <p><strong>Date of Judgment:</strong> January 5, 2026</p>
+    <h3>Case Summary</h3>
+    <p>Landmark conviction of trafficking ring that sent 150+ women abroad under false pretenses.</p>
+    <h3>Key Aspects</h3>
+    <ul>
+      <li>20-year sentences for ringleaders</li>
+      <li>Compensation ordered for victims</li>
+      <li>New trafficking task force established</li>
+    </ul>
+  `,
+
+
+      "Press Freedom Violation": `
+        <h2>Press Freedom Violation Case Details</h2>
+        <p><strong>Case Number:</strong> SC-2025-01</p>
+        <p><strong>Court:</strong> Supreme Court of Nepal</p>
+        <p><strong>Judges:</strong> Hon. Justice Anil Kumar Sinha, Hon. Justice Sapana Pradhan Malla</p>
+        <p><strong>Date of Judgment:</strong> February 15, 2025</p>
+        <h3>Case Summary</h3>
+        <p>This landmark case involved the arbitrary arrest of journalist Ramesh Thapa under the Electronic Transactions Act for publishing an investigative report on government corruption. The Supreme Court ruled that the arrest violated constitutional guarantees of press freedom under Article 19.</p>
+        <h3>Key Holdings</h3>
+        <ul>
+          <li>Journalists have a constitutional right to report on matters of public interest</li>
+          <li>The Electronic Transactions Act cannot be used to suppress legitimate journalism</li>
+          <li>Prior restraint on publication is unconstitutional except in extreme circumstances</li>
+        </ul>
+        <h3>Impact</h3>
+        <p>The judgment led to amendments in the Electronic Transactions Act and strengthened protections for journalists in Nepal.</p>
+      `,
+      "Religious Freedom Case": `
+        <h2>Religious Freedom Case Details</h2>
+        <p><strong>Case Number:</strong> SC-2025-12</p>
+        <p><strong>Court:</strong> Supreme Court of Nepal</p>
+        <p><strong>Judges:</strong> Hon. Justice Ishwar Prasad Khatiwada, Hon. Justice Prakash Man Singh Raut</p>
+        <p><strong>Date of Judgment:</strong> October 25, 2025</p>
+        <h3>Case Summary</h3>
+        <p>This ongoing case challenges local ordinances restricting religious conversions in several municipalities. The petitioners argue these violate constitutional guarantees of religious freedom under Article 26.</p>
+        <h3>Current Status</h3>
+        <p>The Supreme Court has issued an interim order staying enforcement of the ordinances until final judgment. The case is currently in the hearing phase with multiple religious organizations intervening.</p>
+        <h3>Potential Impact</h3>
+        <p>The decision will clarify the limits of local government authority regarding religious practice and could affect similar ordinances nationwide.</p>
+      `,
+      "Freedom of Assembly Conflict": `
+        <h2>Freedom of Assembly Case Details</h2>
+        <p><strong>Case Number:</strong> SC-2025-18</p>
+        <p><strong>Court:</strong> Supreme Court of Nepal</p>
+        <p><strong>Judges:</strong> Hon. Justice Hari Krishna Karki, Hon. Justice Bishowambhar Prasad Shrestha</p>
+        <p><strong>Date of Judgment:</strong> November 20, 2025</p>
+        <h3>Case Summary</h3>
+        <p>This case involved police use of excessive force against peaceful protesters in Kathmandu during a demonstration about education reform. The Court ruled the police actions violated constitutional rights under Article 17.</p>
+        <h3>Key Holdings</h3>
+        <ul>
+          <li>Peaceful assembly cannot be restricted without compelling state interest</li>
+          <li>Police must use minimum necessary force in crowd control situations</li>
+          <li>The government must establish clear guidelines for protest management</li>
+        </ul>
+        <h3>Remedies Ordered</h3>
+        <p>The Court ordered compensation for injured protesters and mandated police retraining on crowd control techniques.</p>
+      `
+    };
+
+    const sampleCases = [
+
+
+
+  {
+    id: 19,
+    title: "Public Health Emergency Case",
+    category: "human-rights",
+    date: "Jan 15, 2026",
+    status: "ongoing",
+    summary: "Challenge to government's handling of public health emergencies.",
+    pdfContent: pdfContents["Public Health Emergency Case"]
+  },
+  {
+    id: 20,
+    title: "Judicial Independence Case",
+    category: "constitutional",
+    date: "Jan 28, 2026",
+    status: "landmark",
+    summary: "Case regarding political interference in judicial appointments.",
+    pdfContent: pdfContents["Judicial Independence Case"]
+  },
+  {
+    id: 21,
+    title: "Tax Evasion Investigation",
+    category: "corruption",
+    date: "Feb 5, 2026",
+    status: "closed",
+    summary: "Investigation into systematic tax evasion by businesses.",
+    pdfContent: pdfContents["Tax Evasion Investigation"]
+  },
+  // Continue adding all 23 new cases following the same pattern...
+  {
+    id: 22,
+    title: "Forest Conservation Dispute",
+    category: "human-rights",
+    date: "Feb 18, 2026",
+    status: "ongoing",
+    summary: "Dispute over illegal logging in protected forests.",
+    pdfContent: pdfContents["Forest Conservation Dispute"]
+  },
+  {
+    id: 23,
+    title: "Banking Regulation Case",
+    category: "civil",
+    date: "Mar 3, 2026",
+    status: "closed",
+    summary: "Challenge to inadequate banking regulations.",
+    pdfContent: pdfContents["Banking Regulation Case"]
+  },
+  {
+    id: 24,
+    title: "Disability Rights Case",
+    category: "human-rights",
+    date: "Mar 12, 2026",
+    status: "landmark",
+    summary: "Case regarding lack of accessibility in public spaces.",
+    pdfContent: pdfContents["Disability Rights Case"]
+  },
+  {
+    id: 25,
+    title: "Water Rights Dispute",
+    category: "human-rights",
+    date: "Mar 25, 2026",
+    status: "closed",
+    summary: "Dispute over water allocation between communities.",
+    pdfContent: pdfContents["Water Rights Dispute"]
+  },
+  {
+    id: 26,
+    title: "Consumer Protection Case",
+    category: "civil",
+    date: "Apr 7, 2026",
+    status: "closed",
+    summary: "Case against price gouging of essential medicines.",
+    pdfContent: pdfContents["Consumer Protection Case"]
+  },
+  {
+    id: 27,
+    title: "Political Party Funding Case",
+    category: "corruption",
+    date: "Apr 15, 2026",
+    status: "landmark",
+    summary: "Challenge to opaque political party funding.",
+    pdfContent: pdfContents["Political Party Funding Case"]
+  },
+  {
+    id: 28,
+    title: "Prison Reform Case",
+    category: "human-rights",
+    date: "Apr 28, 2026",
+    status: "ongoing",
+    summary: "Case regarding prison overcrowding and conditions.",
+    pdfContent: pdfContents["Prison Reform Case"]
+  },
+  {
+    id: 29,
+    title: "Cybercrime Legislation Case",
+    category: "constitutional",
+    date: "May 10, 2026",
+    status: "closed",
+    summary: "Challenge to vague cybercrime provisions.",
+    pdfContent: pdfContents["Cybercrime Legislation Case"]
+  },
+  {
+    id: 30,
+    title: "Heritage Protection Case",
+    category: "human-rights",
+    date: "May 22, 2026",
+    status: "closed",
+    summary: "Case regarding illegal demolition of historic buildings.",
+    pdfContent: pdfContents["Heritage Protection Case"]
+  },
+  {
+    id: 31,
+    title: "Agricultural Subsidy Case",
+    category: "corruption",
+    date: "Jun 5, 2026",
+    status: "closed",
+    summary: "Investigation into misallocation of farm subsidies.",
+    pdfContent: pdfContents["Agricultural Subsidy Case"]
+  },
+  {
+    id: 32,
+    title: "Public Transport Safety Case",
+    category: "civil",
+    date: "Jun 18, 2026",
+    status: "landmark",
+    summary: "Case regarding lack of safety standards in transportation.",
+    pdfContent: pdfContents["Public Transport Safety Case"]
+  },
+  {
+    id: 33,
+    title: "Foreign Worker Rights Case",
+    category: "human-rights",
+    date: "Jul 2, 2026",
+    status: "ongoing",
+    summary: "Case regarding protections for workers abroad.",
+    pdfContent: pdfContents["Foreign Worker Rights Case"]
+  },
+  {
+    id: 34,
+    title: "Air Pollution Control Case",
+    category: "human-rights",
+    date: "Jul 15, 2026",
+    status: "closed",
+    summary: "Case regarding dangerous air quality levels.",
+    pdfContent: pdfContents["Air Pollution Control Case"]
+  },
+  {
+    id: 35,
+    title: "Mental Health Services Case",
+    category: "human-rights",
+    date: "Jul 28, 2026",
+    status: "ongoing",
+    summary: "Challenge to inadequate mental health services.",
+    pdfContent: pdfContents["Mental Health Services Case"]
+  },
+  {
+    id: 36,
+    title: "Public Procurement Case",
+    category: "corruption",
+    date: "Aug 10, 2026",
+    status: "closed",
+    summary: "Investigation into corruption in public procurement.",
+    pdfContent: pdfContents["Public Procurement Case"]
+  },
+  {
+    id: 37,
+    title: "Indigenous Language Rights",
+    category: "human-rights",
+    date: "Aug 22, 2026",
+    status: "landmark",
+    summary: "Case regarding recognition of indigenous languages.",
+    pdfContent: pdfContents["Indigenous Language Rights"]
+  },
+  {
+    id: 38,
+    title: "Urban Planning Case",
+    category: "civil",
+    date: "Sep 5, 2026",
+    status: "ongoing",
+    summary: "Challenge to haphazard urban development.",
+    pdfContent: pdfContents["Urban Planning Case"]
+  },
+  {
+    id: 39,
+    title: "Antiquities Smuggling Case",
+    category: "criminal",
+    date: "Sep 18, 2026",
+    status: "closed",
+    summary: "Investigation into smuggling of Nepalese antiquities.",
+    pdfContent: pdfContents["Antiquities Smuggling Case"]
+  },
+  {
+    id: 40,
+    title: "Climate Change Policy Case",
+    category: "human-rights",
+    date: "Sep 30, 2026",
+    status: "ongoing",
+    summary: "Case regarding inadequate climate change action.",
+    pdfContent: pdfContents["Climate Change Policy Case"]
+  },
+  {
+    id: 41,
+    title: "Rural Electrification Case",
+    category: "human-rights",
+    date: "Oct 12, 2026",
+    status: "closed",
+    summary: "Case regarding unequal access to electricity.",
+    pdfContent: pdfContents["Rural Electrification Case"]
+  },
+
+
+
+
+  {
+    id: 4,
+    title: "Right to Education Case",
+    category: "human-rights",
+    date: "Mar 5, 2025",
+    status: "landmark",
+    summary: "Landmark case ensuring education access in remote districts.",
+    pdfContent: pdfContents["Right to Education Case"]
+  },
+  {
+    id: 5,
+    title: "Illegal Surveillance Lawsuit",
+    category: "civil",
+    date: "Apr 12, 2025",
+    status: "closed",
+    summary: "Case against unconstitutional mass surveillance program.",
+    pdfContent: pdfContents["Illegal Surveillance Lawsuit"]
+  },
+  {
+    id: 6,
+    title: "Land Rights Dispute",
+    category: "human-rights",
+    date: "May 8, 2025",
+    status: "ongoing",
+    summary: "Dispute over Tharu community land rights in Bardiya.",
+    pdfContent: pdfContents["Land Rights Dispute"]
+  },
+  {
+    id: 7,
+    title: "Gender Equality Enforcement",
+    category: "human-rights",
+    date: "Jun 3, 2025",
+    status: "landmark",
+    summary: "Challenge to discriminatory inheritance laws.",
+    pdfContent: pdfContents["Gender Equality Enforcement"]
+  },
+  {
+    id: 8,
+    title: "Police Misconduct Trial",
+    category: "criminal",
+    date: "Jul 19, 2025",
+    status: "closed",
+    summary: "Case regarding excessive force during student protests.",
+    pdfContent: pdfContents["Police Misconduct Trial"]
+  },
+  {
+    id: 9,
+    title: "Corruption in Road Construction",
+    category: "corruption",
+    date: "Aug 7, 2025",
+    status: "ongoing",
+    summary: "Investigation into Mid-Hill Highway project corruption.",
+    pdfContent: pdfContents["Corruption in Road Construction"]
+  },
+  {
+    id: 10,
+    title: "Nepal Citizenship Challenge",
+    category: "constitutional",
+    date: "Sep 1, 2025",
+    status: "landmark",
+    summary: "Challenge to citizenship provisions for single mothers.",
+    pdfContent: pdfContents["Nepal Citizenship Challenge"]
+  },
+  {
+    id: 11,
+    title: "Digital Privacy Violation",
+    category: "civil",
+    date: "Sep 15, 2025",
+    status: "closed",
+    summary: "Case against telecom companies selling customer data.",
+    pdfContent: pdfContents["Digital Privacy Violation"]
+  },
+  {
+    id: 12,
+    title: "Child Labour Case",
+    category: "human-rights",
+    date: "Oct 5, 2025",
+    status: "ongoing",
+    summary: "PIL regarding child labor in brick kilns.",
+    pdfContent: pdfContents["Child Labour Case"]
+  },
+  {
+    id: 13,
+    title: "Domestic Violence Law Reform",
+    category: "human-rights",
+    date: "Oct 22, 2025",
+    status: "landmark",
+    summary: "Challenge to inadequate domestic violence protections.",
+    pdfContent: pdfContents["Domestic Violence Law Reform"]
+  },
+  {
+    id: 14,
+    title: "Election Fraud Investigation",
+    category: "corruption",
+    date: "Nov 5, 2025",
+    status: "closed",
+    summary: "Investigation into Province 2 election fraud.",
+    pdfContent: pdfContents["Election Fraud Investigation"]
+  },
+  {
+    id: 15,
+    title: "Media Censorship Ruling",
+    category: "constitutional",
+    date: "Nov 18, 2025",
+    status: "landmark",
+    summary: "Challenge to government's 'fake news' regulations.",
+    pdfContent: pdfContents["Media Censorship Ruling"]
+  },
+  {
+    id: 16,
+    title: "Whistleblower Protection Case",
+    category: "corruption",
+    date: "Dec 3, 2025",
+    status: "closed",
+    summary: "Case involving termination of whistleblower.",
+    pdfContent: pdfContents["Whistleblower Protection Case"]
+  },
+  {
+    id: 17,
+    title: "Labor Union Recognition Case",
+    category: "civil",
+    date: "Dec 10, 2025",
+    status: "ongoing",
+    summary: "Challenge to factory's refusal to recognize union.",
+    pdfContent: pdfContents["Labor Union Recognition Case"]
+  },
+  {
+    id: 18,
+    title: "Environmental Law Enforcement",
+    category: "human-rights",
+    date: "Dec 22, 2025",
+    status: "closed",
+    summary: "Case against illegal mining in Chure hills.",
+    pdfContent: pdfContents["Environmental Law Enforcement"]
+  },
+  {
+    id: 19,
+    title: "Human Trafficking Conviction",
+    category: "criminal",
+    date: "Jan 5, 2026",
+    status: "closed",
+    summary: "Landmark conviction of trafficking ring.",
+    pdfContent: pdfContents["Human Trafficking Conviction"]
+  },
+      {
+        id: 1,
+        title: "Press Freedom Violation",
+        category: "criminal",
+        date: "Feb 2, 2025",
+        status: "closed",
+        summary: "This case involved violations of press freedom under the Electronic Transactions Act.",
+        pdfContent: pdfContents["Press Freedom Violation"]
+      },
+      {
+        id: 2,
+        title: "Religious Freedom Case",
+        category: "human-rights",
+        date: "Oct 10, 2025",
+        status: "ongoing",
+        summary: "This ongoing case challenges restrictions on religious conversions in local municipalities.",
+        pdfContent: pdfContents["Religious Freedom Case"]
+      },
+      {
+        id: 3,
+        title: "Freedom of Assembly Conflict",
+        category: "constitutional",
+        date: "Nov 11, 2025",
+        status: "closed",
+        summary: "This case addressed police use of force against peaceful protesters in Kathmandu.",
+        pdfContent: pdfContents["Freedom of Assembly Conflict"]
+      }
+    ];
+
+    function displayCases(cases) {
+      const grid = document.getElementById('casesGrid');
+      grid.innerHTML = '';
+      if (cases.length === 0) {
+        grid.innerHTML = '<div class="loading">No cases found matching your criteria.</div>';
+        return;
+      }
+      cases.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'case-card';
+        card.setAttribute('data-status', c.status);
+        card.innerHTML = `
+          <div class="case-category">${c.category.toUpperCase()}</div>
+          <h3 class="case-title">${c.title}</h3>
+          <p class="case-date">${c.date}</p>
+          <p class="case-summary">${c.summary}</p>
+          <div class="case-status">Status: ${c.status}</div>
+          <a href="#" class="case-pdf-link" onclick="openCaseDetails(event, ${c.id})">View Case Details</a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function openCaseDetails(event, caseId) {
+      event.preventDefault();
+      const caseData = allCases.find(c => c.id === caseId);
+      
+      const modal = document.createElement('div');
+      modal.style.position = 'fixed';
+      modal.style.top = '0';
+      modal.style.left = '0';
+      modal.style.width = '100%';
+      modal.style.height = '100%';
+      modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+      modal.style.zIndex = '1000';
+      modal.style.padding = '40px';
+      modal.style.overflowY = 'auto';
+      modal.style.color = '#333';
+      
+      modal.innerHTML = `
+        <div style="background: white; max-width: 800px; margin: 0 auto; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin: 0;">${caseData.title}</h2>
+            <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: var(--accent); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Close</button>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <strong>Category:</strong> ${caseData.category.toUpperCase()} | 
+            <strong>Date:</strong> ${caseData.date} | 
+            <strong>Status:</strong> ${caseData.status}
+          </div>
+          <div id="case-content" style="line-height: 1.6;">
+            ${caseData.pdfContent}
+          </div>
+          <div style="margin-top: 30px; text-align: center;">
+            <button onclick="downloadPDF('${caseData.title}')" style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-right: 10px;">Download PDF</button>
+            <button onclick="printCase()" style="background: var(--secondary); color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Print Case</button>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+    }
+
+    function downloadPDF(title) {
+      alert(`Downloading PDF for ${title}...\n\n(In a real implementation, this would download the actual PDF file)`);
+    }
+
+    function printCase() {
+      window.print();
+    }
+
+    function filterCases(category) {
+      currentFilter = category;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.filter-btn[data-category="${category}"]`).classList.add('active');
+      const filtered = category === 'all' ? allCases : allCases.filter(c => c.category === category);
+      displayCases(filtered);
+    }
+
+    function searchCases() {
+      const query = document.querySelector('.search-input').value.toLowerCase();
+      const filtered = allCases.filter(c => {
+        const title = c.title.toLowerCase();
+        const summary = c.summary.toLowerCase();
+        const category = c.category.toLowerCase();
+        return title.includes(query) || summary.includes(query) || category.includes(query);
+      });
+      displayCases(filtered);
+    }
+
+    function toggleLanguage() {
+      currentLanguage = currentLanguage === 'en' ? 'np' : 'en';
+      document.getElementById('languageText').textContent = currentLanguage === 'en' ? 'नेपाली' : 'English';
+    }
+
+    // Initialize the page
+    window.onload = function() {
+      allCases = sampleCases;
+      displayCases(allCases);
+    };
+  </script>
+</body>
+</html>

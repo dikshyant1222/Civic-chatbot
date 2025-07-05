@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>फारम जनरेटर उपकरण</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans Devanagari', 'Kalimati', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #153b60 0%, #1e5799 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container {
+            padding: 30px;
+        }
+
+        .preview-container {
+            padding: 30px;
+            display: none;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #34495e;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            background: white;
+            font-family: 'Noto Sans Devanagari', 'Kalimati', Arial, sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-right: 10px;
+            font-family: 'Noto Sans Devanagari', 'Kalimati', Arial, sans-serif;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #27ae60;
+        }
+
+        .action-buttons {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+
+        /* Document Preview Styles */
+        .document-preview {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-family: 'Noto Sans Devanagari', 'Kalimati', Arial, sans-serif;
+            line-height: 1.8;
+            color: #2c3e50;
+        }
+
+        .document-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-decoration: underline;
+            color: #2c3e50;
+        }
+
+        .document-content {
+            text-align: justify;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .document-section {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .signature-section {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .signature-block {
+            text-align: center;
+        }
+
+        .signature-block h4 {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid #000;
+            height: 60px;
+            margin-bottom: 5px;
+        }
+
+        .print-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .header,
+            .form-container,
+            .print-btn {
+                display: none;
+            }
+            
+            .preview-container {
+                display: block !important;
+                padding: 20px;
+                border: none;
+            }
+            
+            .document-preview {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .signature-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>फारम जनरेटर उपकरण</h1>
+            <p>तलको फारम भरेर डकुमेन्ट जनरेट गर्नुहोस्</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Form Input Section -->
+            <div class="form-container" id="formInput">
+                <form id="dataForm">
+                    <!-- Personal Information Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">व्यक्तिगत विवरण</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fullName">पुरा नाम <span class="required">*</span></label>
+                                <input type="text" id="fullName" name="fullName" required placeholder="तपाईंको पुरा नाम">
+                            </div>
+                            <div class="form-group">
+                                <label for="citizenshipNumber">नागरिकता नम्बर <span class="required">*</span></label>
+                                <input type="text" id="citizenshipNumber" name="citizenshipNumber" required placeholder="नागरिकता नम्बर">
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">जन्म मिति <span class="required">*</span></label>
+                                <input type="date" id="dob" name="dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">लिङ्ग <span class="required">*</span></label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">छान्नुहोस्</option>
+                                    <option value="पुरुष">पुरुष</option>
+                                    <option value="महिला">महिला</option>
+                                    <option value="अन्य">अन्य</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">सम्पर्क विवरण</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="phone">फोन नम्बर <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" required placeholder="९८XXXXXXXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">इमेल</label>
+                                <input type="email" id="email" name="email" placeholder="example@domain.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="district">जिल्ला <span class="required">*</span></label>
+                                <select id="district" name="district" required>
+                                    <option value="">जिल्ला छान्नुहोस्</option>
+                                    <option value="काठमाडौं">काठमाडौं</option>
+                                    <option value="ललितपुर">ललितपुर</option>
+                                    <option value="भक्तपुर">भक्तपुर</option>
+                                    <option value="पोखरा">पोखरा</option>
+                                    <option value="बिराटनगर">बिराटनगर</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="municipality">नगरपालिका/गाउँपालिका <span class="required">*</span></label>
+                                <input type="text" id="municipality" name="municipality" required placeholder="नगरपालिका/गाउँपालिका">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">ठेगाना <span class="required">*</span></label>
+                            <textarea id="address" name="address" required placeholder="पुरा ठेगाना (वडा नं., टोल, गाउँ)"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Family Information Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">पारिवारिक विवरण</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fatherName">बाबुको नाम <span class="required">*</span></label>
+                                <input type="text" id="fatherName" name="fatherName" required placeholder="बाबुको पुरा नाम">
+                            </div>
+                            <div class="form-group">
+                                <label for="motherName">आमाको नाम <span class="required">*</span></label>
+                                <input type="text" id="motherName" name="motherName" required placeholder="आमाको पुरा नाम">
+                            </div>
+                            <div class="form-group">
+                                <label for="spouseName">श्रीमान/श्रीमतीको नाम</label>
+                                <input type="text" id="spouseName" name="spouseName" placeholder="श्रीमान/श्रीमतीको नाम">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">परिवारका सदस्यहरू</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>क्र.सं.</th>
+                                    <th>परिवारको सदस्य</th>
+                                    <th>सम्पर्क नम्बर</th>
+                                    <th>नाता</th>
+                                    <th>उमेर</th>
+                                </tr>
+                            </thead>
+                            <tbody id="familyMembers">
+                                <tr>
+                                    <td>१</td>
+                                    <td><input type="text" name="memberName1" placeholder="नाम"></td>
+                                    <td><input type="text" name="memberPhone1" placeholder="९८XXXXXXXX"></td>
+                                    <td>
+                                        <select name="memberRelation1">
+                                            <option value="">छान्नुहोस्</option>
+                                            <option value="बाबु">बाबु</option>
+                                            <option value="आमा">आमा</option>
+                                            <option value="श्रीमान">श्रीमान</option>
+                                            <option value="श्रीमती">श्रीमती</option>
+                                            <option value="छोरा">छोरा</option>
+                                            <option value="छोरी">छोरी</option>
+                                            <option value="हजुरबुबा">हजुरबुबा</option>
+                                            <option value="हजुरआमा">हजुरआमा</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="number" name="memberAge1" placeholder="उमेर"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-secondary" id="addMember" style="margin-top: 10px;">+ अर्को सदस्य थप्नुहोस्</button>
+                    </div>
+
+                    <!-- Documents Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">कागजातहरू</h3>
+                        <div class="form-group">
+                            <label>आवश्यक कागजातहरू (सबै अपलोड गर्नुहोस्)</label>
+                            <div style="margin-top: 10px;">
+                                <input type="checkbox" id="docCitizenship" name="docCitizenship">
+                                <label for="docCitizenship">नागरिकता प्रतिलिपि</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="docPhoto" name="docPhoto">
+                                <label for="docPhoto">पासपोर्ट साइजको फोटो</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="docRecommendation" name="docRecommendation">
+                                <label for="docRecommendation">सिफारिस पत्र</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="remarks">अन्य टिप्पणीहरू</label>
+                            <textarea id="remarks" name="remarks" placeholder="कुनै विशेष टिप्पणी छ भने यहाँ लेख्नुहोस्"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" id="generateBtn" class="btn btn-success">डकुमेन्ट जनरेट गर्नुहोस्</button>
+                        <button type="reset" class="btn btn-secondary">रद्द गर्नुहोस्</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Document Preview Section -->
+            <div class="preview-container" id="documentPreview">
+                <div class="document-preview">
+                    <h2 class="document-title">व्यक्तिगत विवरण पत्र</h2>
+                    
+                    <div class="document-section">
+                        <p>यस दस्तावेजले <span id="previewFullName"></span> को व्यक्तिगत विवरण समावेश गर्दछ। यो दस्तावेज <span id="previewDistrict"></span> जिल्लाको <span id="previewMunicipality"></span> नगरपालिका/गाउँपालिकामा बसोबास गर्ने व्यक्तिको लागि तयार पारिएको हो।</p>
+                    </div>
+                    
+                    <div class="document-section">
+                        <h3>आधारभूत जानकारी:</h3>
+                        <p><strong>पुरा नाम:</strong> <span id="previewName"></span></p>
+                        <p><strong>नागरिकता नम्बर:</strong> <span id="previewCitizenship"></span></p>
+                        <p><strong>जन्म मिति:</strong> <span id="previewDob"></span></p>
+                        <p><strong>लिङ्ग:</strong> <span id="previewGender"></span></p>
+                        <p><strong>फोन नम्बर:</strong> <span id="previewPhone"></span></p>
+                        <p><strong>इमेल:</strong> <span id="previewEmail"></span></p>
+                        <p><strong>ठेगाना:</strong> <span id="previewAddress"></span></p>
+                    </div>
+                    
+                    <div class="document-section">
+                        <h3>पारिवारिक विवरण:</h3>
+                        <p><strong>बाबुको नाम:</strong> <span id="previewFather"></span></p>
+                        <p><strong>आमाको नाम:</strong> <span id="previewMother"></span></p>
+                        <p><strong>श्रीमान/श्रीमतीको नाम:</strong> <span id="previewSpouse"></span></p>
+                    </div>
+                    
+                    <div class="document-section">
+                        <h3>परिवारका सदस्यहरू:</h3>
+                        <table border="1" cellpadding="5" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>क्र.सं.</th>
+                                    <th>नाम</th>
+                                    <th>सम्पर्क नम्बर</th>
+                                    <th>नाता</th>
+                                    <th>उमेर</th>
+                                </tr>
+                            </thead>
+                            <tbody id="previewFamilyMembers">
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="document-section">
+                        <h3>आवश्यक कागजातहरू:</h3>
+                        <ul id="previewDocuments">
+                        </ul>
+                    </div>
+                    
+                    <div class="document-section">
+                        <h3>अन्य टिप्पणीहरू:</h3>
+                        <p id="previewRemarks"></p>
+                    </div>
+                    
+                    <div class="signature-section">
+                        <div class="signature-block">
+                            <div class="signature-line"></div>
+                            <h4>आवेदकको दस्तखत</h4>
+                        </div>
+                        <div class="signature-block">
+                            <div class="signature-line"></div>
+                            <h4>अधिकारीको दस्तखत</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="document-section" style="text-align: center; margin-top: 30px;">
+                        <p>मिति: <span id="previewDate"></span></p>
+                    </div>
+                </div>
+                
+                <div class="print-btn">
+                    <button onclick="window.print()" class="btn btn-primary">प्रिन्ट गर्नुहोस्</button>
+                    <button id="backToForm" class="btn btn-secondary">फिर्ता जानुहोस्</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add family member row
+            let memberCount = 1;
+            document.getElementById('addMember').addEventListener('click', function() {
+                memberCount++;
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${memberCount}</td>
+                    <td><input type="text" name="memberName${memberCount}" placeholder="नाम"></td>
+                    <td><input type="text" name="memberPhone${memberCount}" placeholder="९८XXXXXXXX"></td>
+                    <td>
+                        <select name="memberRelation${memberCount}">
+                            <option value="">छान्नुहोस्</option>
+                            <option value="बाबु">बाबु</option>
+                            <option value="आमा">आमा</option>
+                            <option value="श्रीमान">श्रीमान</option>
+                            <option value="श्रीमती">श्रीमती</option>
+                            <option value="छोरा">छोरा</option>
+                            <option value="छोरी">छोरी</option>
+                            <option value="हजुरबुबा">हजुरबुबा</option>
+                            <option value="हजुरआमा">हजुरआमा</option>
+                        </select>
+                    </td>
+                    <td><input type="number" name="memberAge${memberCount}" placeholder="उमेर"></td>
+                `;
+                document.getElementById('familyMembers').appendChild(newRow);
+            });
+
+            // Generate document button
+            document.getElementById('generateBtn').addEventListener('click', function() {
+                // Validate form
+                if (!document.getElementById('dataForm').reportValidity()) {
+                    alert('कृपया सबै आवश्यक फिल्डहरू भर्नुहोस्');
+                    return;
+                }
+
+                // Get form values
+                const formData = {
+                    fullName: document.getElementById('fullName').value,
+                    citizenshipNumber: document.getElementById('citizenshipNumber').value,
+                    dob: document.getElementById('dob').value,
+                    gender: document.getElementById('gender').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    district: document.getElementById('district').value,
+                    municipality: document.getElementById('municipality').value,
+                    address: document.getElementById('address').value,
+                    fatherName: document.getElementById('fatherName').value,
+                    motherName: document.getElementById('motherName').value,
+                    spouseName: document.getElementById('spouseName').value,
+                    remarks: document.getElementById('remarks').value,
+                    documents: {
+                        citizenship: document.getElementById('docCitizenship').checked,
+                        photo: document.getElementById('docPhoto').checked,
+                        recommendation: document.getElementById('docRecommendation').checked
+                    },
+                    familyMembers: []
+                };
+
+                // Get family members data
+                const memberInputs = document.querySelectorAll('#familyMembers tr');
+                memberInputs.forEach((row, index) => {
+                    const memberName = row.querySelector(`input[name="memberName${index+1}"]`).value;
+                    const memberPhone = row.querySelector(`input[name="memberPhone${index+1}"]`).value;
+                    const memberRelation = row.querySelector(`select[name="memberRelation${index+1}"]`).value;
+                    const memberAge = row.querySelector(`input[name="memberAge${index+1}"]`).value;
+
+                    if (memberName || memberPhone || memberRelation || memberAge) {
+                        formData.familyMembers.push({
+                            name: memberName,
+                            phone: memberPhone,
+                            relation: memberRelation,
+                            age: memberAge
+                        });
+                    }
+                });
+
+                // Update preview with form data
+                document.getElementById('previewFullName').textContent = formData.fullName;
+                document.getElementById('previewName').textContent = formData.fullName;
+                document.getElementById('previewCitizenship').textContent = formData.citizenshipNumber;
+                document.getElementById('previewDob').textContent = formatDate(formData.dob);
+                document.getElementById('previewGender').textContent = formData.gender;
+                document.getElementById('previewPhone').textContent = formData.phone;
+                document.getElementById('previewEmail').textContent = formData.email || 'N/A';
+                document.getElementById('previewDistrict').textContent = formData.district;
+                document.getElementById('previewMunicipality').textContent = formData.municipality;
+                document.getElementById('previewAddress').textContent = formData.address;
+                document.getElementById('previewFather').textContent = formData.fatherName;
+                document.getElementById('previewMother').textContent = formData.motherName;
+                document.getElementById('previewSpouse').textContent = formData.spouseName || 'N/A';
+                document.getElementById('previewRemarks').textContent = formData.remarks || 'कुनै विशेष टिप्पणी छैन';
+                document.getElementById('previewDate').textContent = new Date().toLocaleDateString('ne-NP');
+
+                // Update family members in preview
+                const previewMembers = document.getElementById('previewFamilyMembers');
+                previewMembers.innerHTML = '';
+                formData.familyMembers.forEach((member, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index+1}</td>
+                        <td>${member.name || 'N/A'}</td>
+                        <td>${member.phone || 'N/A'}</td>
+                        <td>${member.relation || 'N/A'}</td>
+                        <td>${member.age || 'N/A'}</td>
+                    `;
+                    previewMembers.appendChild(row);
+                });
+
+                // Update documents in preview
+                const previewDocs = document.getElementById('previewDocuments');
+                previewDocs.innerHTML = '';
+                if (formData.documents.citizenship) {
+                    const li = document.createElement('li');
+                    li.textContent = 'नागरिकता प्रतिलिपि';
+                    previewDocs.appendChild(li);
+                }
+                if (formData.documents.photo) {
+                    const li = document.createElement('li');
+                    li.textContent = 'पासपोर्ट साइजको फोटो';
+                    previewDocs.appendChild(li);
+                }
+                if (formData.documents.recommendation) {
+                    const li = document.createElement('li');
+                    li.textContent = 'सिफारिस पत्र';
+                    previewDocs.appendChild(li);
+                }
+                if (previewDocs.children.length === 0) {
+                    const li = document.createElement('li');
+                    li.textContent = 'कुनै कागजात उल्लेख गरिएको छैन';
+                    previewDocs.appendChild(li);
+                }
+
+                // Show preview and hide form
+                document.getElementById('formInput').style.display = 'none';
+                document.getElementById('documentPreview').style.display = 'block';
+            });
+
+            // Back to form button
+            document.getElementById('backToForm').addEventListener('click', function() {
+                document.getElementById('documentPreview').style.display = 'none';
+                document.getElementById('formInput').style.display = 'block';
+            });
+
+            // Helper function to format date
+            function formatDate(dateString) {
+                if (!dateString) return 'N/A';
+                const date = new Date(dateString);
+                return date.toLocaleDateString('ne-NP');
+            }
+        });
+    </script>
+</body>
+</html>

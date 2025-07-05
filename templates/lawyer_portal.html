@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalConnect - Legal Services Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 90%;
+            max-width: 1200px;
+            min-height: 600px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .auth-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .google-btn {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .google-btn:hover {
+            background: #357ae8;
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message {
+            background: #efe;
+            color: #3c3;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .dashboard-title {
+            font-size: 2em;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .user-email {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: #3498db;
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .card-description {
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+
+        .form-toggle {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-toggle a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .form-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .divider span {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0 15px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                margin: 20px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚖️ LegalConnect</h1>
+            <p>Lawyer Portal</p>
+        </div>
+
+        <div class="content">
+            <!-- Loading Section -->
+            <div id="loading-section" class="loading">
+                <div class="loading-spinner"></div>
+                <p>Initializing...</p>
+            </div>
+
+            <!-- Auth Section -->
+            <div id="auth-section" class="auth-section" style="display: none;">
+                <form id="auth-form" class="auth-form">
+                    <h2 id="auth-title" style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Sign In</h2>
+                    
+                    <div id="error-message" class="error-message"></div>
+                    <div id="success-message" class="success-message"></div>
+                    
+                    <button type="button" class="google-btn" onclick="signInWithGoogle()">
+                        <span>🔍</span>
+                        Continue with Google
+                    </button>
+                    
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <button type="button" class="btn" onclick="handleEmailAuth()" id="auth-btn">Sign In</button>
+                    
+                    <div class="form-toggle">
+                        <a onclick="toggleAuthMode()" id="auth-toggle">Don't have an account? Sign Up</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="dashboard">
+                <div class="dashboard-header">
+                    <h2 class="dashboard-title">Lawyer Portal</h2>
+                    <div class="user-info">
+                        <img id="user-avatar" class="user-avatar" src="" alt="User Avatar">
+                        <div class="user-details">
+                            <div id="user-name" class="user-name"></div>
+                            <div id="user-email" class="user-email"></div>
+                        </div>
+                        <button class="logout-btn" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <a href="{{ url_for('appointments') }}" class="dashboard-card" style="text-decoration: none;">
+                        <div class="card-icon">📅</div>
+                        <h3 class="card-title">Your Appointments</h3>
+                        <p class="card-description">View and manage your scheduled client meetings and consultations</p>
+                    </a>
+                    
+                    <a href="{{ url_for('mycases') }}" class="dashboard-card" style="text-decoration: none;">
+                        <div class="card-icon">📋</div>
+                        <h3 class="card-title">Your Cases</h3>
+                        <p class="card-description">Track ongoing cases and client matters</p>
+                    </a>
+                    
+                    <a href="{{ url_for('case_study') }}" class="dashboard-card" style="text-decoration: none;">
+                        <div class="card-icon">📚</div>
+                        <h3 class="card-title">Case Studies</h3>
+                        <p class="card-description">Access legal precedents and case study resources</p>
+                    </a>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+
+    <script>
+        // TODO: Replace with your Firebase config
+        const firebaseConfig = {
+  apiKey: "AIzaSyA4G0TApQIbw-B70LFrdaRvOrWNaZg7Z8I",
+  authDomain: "legal-1ba4c.firebaseapp.com",
+  projectId: "legal-1ba4c",
+  storageBucket: "legal-1ba4c.firebasestorage.app",
+  messagingSenderId: "394456384171",
+  appId: "1:394456384171:web:262d91d2d7f37951c36dee",
+  measurementId: "G-KX6CBGWK1Q"
+};
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Global variables
+        let isSignUp = false;
+        const authSection = document.getElementById('auth-section');
+        const dashboard = document.getElementById('dashboard');
+        const loadingSection = document.getElementById('loading-section');
+        const authTitle = document.getElementById('auth-title');
+        const authBtn = document.getElementById('auth-btn');
+        const authToggle = document.getElementById('auth-toggle');
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already signed in
+            auth.onAuthStateChanged(function(user) {
+                loadingSection.style.display = 'none';
+                if (user) {
+                    showDashboard(user);
+                } else {
+                    showAuthSection();
+                }
+            });
+        });
+
+        function showAuthSection() {
+            authSection.style.display = 'block';
+            dashboard.style.display = 'none';
+        }
+
+        function showDashboard(user) {
+            authSection.style.display = 'none';
+            dashboard.style.display = 'block';
+            
+            // Update user info
+            document.getElementById('user-name').textContent = user.displayName || 'User';
+            document.getElementById('user-email').textContent = user.email;
+            document.getElementById('user-avatar').src = user.photoURL || 'https://via.placeholder.com/40';
+        }
+
+        function toggleAuthMode() {
+            isSignUp = !isSignUp;
+            authTitle.textContent = isSignUp ? 'Create Account' : 'Sign In';
+            authBtn.textContent = isSignUp ? 'Sign Up' : 'Sign In';
+            authToggle.textContent = isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up";
+            hideMessages();
+        }
+
+        async function handleEmailAuth() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Basic validation
+            if (!email || !password) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                showError('Please enter a valid email address');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('Password must be at least 6 characters long');
+                return;
+            }
+
+            try {
+                authBtn.disabled = true;
+                authBtn.textContent = 'Processing...';
+
+                if (isSignUp) {
+                    await auth.createUserWithEmailAndPassword(email, password);
+                    showSuccess('Account created successfully!');
+                } else {
+                    await auth.signInWithEmailAndPassword(email, password);
+                }
+            } catch (error) {
+                showError(getErrorMessage(error.code));
+            } finally {
+                authBtn.disabled = false;
+                authBtn.textContent = isSignUp ? 'Sign Up' : 'Sign In';
+            }
+        }
+
+        async function signInWithGoogle() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                await auth.signInWithPopup(provider);
+            } catch (error) {
+                showError(getErrorMessage(error.code));
+            }
+        }
+
+        function logout() {
+            auth.signOut().then(() => {
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
+                hideMessages();
+            }).catch((error) => {
+                showError('Error signing out: ' + error.message);
+            });
+        }
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            document.getElementById('success-message').style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('success-message');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            document.getElementById('error-message').style.display = 'none';
+        }
+
+        function hideMessages() {
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('success-message').style.display = 'none';
+        }
+
+        function getErrorMessage(errorCode) {
+            switch (errorCode) {
+                case 'auth/user-not-found':
+                    return 'No account found with this email address.';
+                case 'auth/wrong-password':
+                    return 'Incorrect password.';
+                case 'auth/email-already-in-use':
+                    return 'An account with this email already exists.';
+                case 'auth/weak-password':
+                    return 'Password should be at least 6 characters.';
+                case 'auth/invalid-email':
+                    return 'Invalid email address.';
+                case 'auth/popup-closed-by-user':
+                    return 'Sign-in popup was closed.';
+                default:
+                    return 'An error occurred. Please try again.';
+            }
+        }
+
+        function openSection(section) {
+            const sectionNames = {
+                'appointments': 'Appointments',
+                'cases': 'Your Cases',
+                'case-studies': 'Case Studies',
+                'profile': 'Profile & Settings'
+            };
+            
+            alert(`Opening ${sectionNames[section]} section...\nThis would navigate to the ${sectionNames[section]} page in a full implementation.`);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic-Buddy | Your Civic Problem Solver</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: rgba(67, 97, 238, 0.1);
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --gradient: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        nav.scrolled {
+            padding: 5px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .btn-prof {
+            background: var(--gradient);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-prof:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            margin: 5px 0;
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            min-height: 100vh;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary-light) 0%, rgba(67, 97, 238, 0) 70%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .hero-text {
+            flex: 1;
+            padding-right: 30px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            position: relative;
+            text-align: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: var(--transition);
+        }
+        
+        .hero-image:hover img {
+            transform: perspective(1000px) rotateY(-5deg) scale(1.02);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn:hover::after {
+            transform: translateX(100%);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary-light);
+            top: 20%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            background-color: var(--accent);
+            opacity: 0.3;
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 70px;
+            height: 70px;
+            background-color: var(--success);
+            opacity: 0.2;
+            top: 60%;
+            left: 15%;
+            animation-delay: 2s;
+        }
+        
+        /* Services Section */
+        .section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: #777;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .section-title .subtitle {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+        
+        /* Lawyer Cards */
+        .lawyers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .lawyer-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .lawyer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .lawyer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .lawyer-image {
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .lawyer-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+        
+        .lawyer-card:hover .lawyer-img {
+            transform: scale(1.05);
+        }
+        
+        .placeholder-img {
+            width: 100%;
+            height: 250px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+            font-size: 18px;
+        }
+        
+        .lawyer-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .experience {
+            color: #777;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .practice-area {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .practice-area strong {
+            color: var(--dark);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            color: #555;
+            border: 1px solid #e9ecef;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .social-icon:hover {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+        }
+        
+        .online-status {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 2;
+        }
+        
+        .online-status .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4cc94b;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        .carousel-nav {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .prev-btn,
+        .next-btn {
+            background-color: white;
+            border: 1px solid #e9ecef;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 0 10px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .prev-btn:hover,
+        .next-btn:hover {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-5 {
+            margin-bottom: 50px;
+        }
+        
+        /* About Us Section */
+        .about {
+            background-color: white;
+            position: relative;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-image {
+            flex: 1;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .about-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stat-item {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .faq::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/dimension.png');
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        
+        .accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .accordion-item {
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .accordion-item:hover {
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .accordion-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .accordion-header:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            font-size: 1rem;
+            color: #555;
+        }
+        
+        .accordion-item.active .accordion-content {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+        
+        .accordion-icon {
+            transition: var(--transition);
+            color: var(--primary);
+        }
+        
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background: var(--gradient);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .testimonials .section-title h2,
+        .testimonials .section-title p {
+            color: white;
+        }
+        
+        .testimonials .section-title h2::after {
+            background: white;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 0 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+            position: absolute;
+        }
+        
+        .testimonial-text::before {
+            top: -15px;
+            left: -10px;
+        }
+        
+        .testimonial-text::after {
+            bottom: -25px;
+            right: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 20px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: var(--gradient);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+        
+        .footer-column p {
+            color: #bbb;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-column ul li a i {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--gradient);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-bottom a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            margin-top: 20px;
+        }
+        
+        .newsletter input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 30px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .newsletter input::placeholder {
+            color: #bbb;
+        }
+        
+        .newsletter button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 30px;
+            border: none;
+            background: var(--gradient);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .newsletter button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        /* Chatbot Icon */
+        .chatbot-icon {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 80px;
+    height: 80px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.3s;
+    box-shadow: 
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 15px var(--primary),
+        0 0 20px var(--primary),
+        0 0 25px var(--primary),
+        0 0 30px var(--primary);
+    animation: neon-pulse 1.5s infinite alternate;
+}
+
+.chatbot-icon span {
+    font-size: 40px;
+    color: white;
+    text-shadow:
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 15px #fff;
+}
+
+@keyframes neon-pulse {
+    from {
+        box-shadow: 
+            0 0 5px #fff,
+            0 0 10px #fff,
+            0 0 15px var(--primary),
+            0 0 20px var(--primary);
+    }
+    to {
+        box-shadow: 
+            0 0 10px #fff,
+            0 0 20px #fff,
+            0 0 30px var(--primary),
+            0 0 40px var(--primary),
+            0 0 50px var(--primary);
+    }
+}
+
+.chatbot-icon:hover {
+    transform: scale(1.1);
+    animation: none;
+    box-shadow: 
+        0 0 15px #fff,
+        0 0 25px #fff,
+        0 0 35px var(--primary),
+        0 0 45px var(--primary),
+        0 0 55px var(--primary);
+}
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(67, 97, 238, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(67, 97, 238, 0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 50px;
+            }
+            
+            .hero-image {
+                width: 80%;
+                margin: 0 auto;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .testimonial-card {
+                padding: 20px;
+            }
+            
+            .chatbot-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .chatbot-icon span {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .template-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .template-popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation: popupFade 0.3s ease-out;
+        }
+
+        @keyframes popupFade {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-popup {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .close-popup:hover {
+            color: #e74c3c;
+        }
+
+        .template-popup h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+
+        .template-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .template-option {
+            text-decoration: none;
+            padding: 25px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .template-option:hover {
+            transform: translateY(-5px);
+            border-color: #3498db;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-option i {
+            font-size: 40px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .template-option h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .template-option p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .template-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Civic<span>Buddy</span></a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Lawyers</a></li>
+                <li><a href="#faq">FAQs</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz</a></li>
+                <li><a href="{{ url_for('lawyer_portal') }}" class="btn-prof">Professional</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        
+        <div class="container hero-content">
+            <div class="hero-text" data-aos="fade-right">
+                <h1>Your One-Stop Solution for All Civic Problems</h1>
+                <p>Civic-Buddy connects citizens with local authorities to resolve community issues efficiently. Report problems, track progress, and make your neighborhood better.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn" onclick="showTemplatePopup(event)"><i class="fas fa-file-alt"></i> Templates</a>
+                    <a href="#services" class="btn btn-outline"><i class="fas fa-search"></i> Find Lawyers</a>
+                </div>
+            </div>
+            <div class="hero-image" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Civic Engagement">
+            </div>
+        </div>
+    </section>
+
+    <!-- Add this HTML right after the hero-buttons div -->
+    <div id="template-popup" class="template-popup">
+        <div class="template-popup-content">
+            <span class="close-popup">&times;</span>
+            <h2>Choose Template Type</h2>
+            <div class="template-options">
+                <a href="{{ url_for('cv') }}" class="template-option">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>CV Template</h3>
+                    <p>Create a professional legal CV</p>
+                </a>
+                <a href="{{ url_for('form') }}" class="template-option">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>Legal Agreement Form</h3>
+                    <p>Generate legal documents and agreements</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lawyer Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <p class="subtitle">Professional Assistance</p>
+                <h2>Featured Lawyers</h2>
+                <p>Connect with experienced legal professionals to help resolve your civic issues</p>
+            </div>
+            <div class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+                <a href="{{ url_for('lawyer') }}" class="btn"><i class="fas fa-gavel"></i> Book a Lawyer</a>
+            </div>
+            
+            <div class="lawyers-grid">
+                <div class="lawyer-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="lawyer-image">
+                        <img src="{{ url_for('static', filename='deepesh.jpg') }}" alt="Advocate Mr. Deepesh Ojha" class="lawyer-img">
+                    </div>
+                    <h3>Advocate Mr. Deepesh Ojha</h3>
+                    <p class="experience"><i class="far fa-clock"></i> 8 Years Experience</p>
+                    <p class="practice-area"><strong>Practice Area:</strong> Aviation / Public Procurement</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/deepesh-ojha-242722a8/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://api.whatsapp.com/send?phone=+9779803888924" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-viber"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+                
+                <div class="lawyer-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="lawyer-image">
+                        <img src="{{ url_for('static', filename='Nabin-Bhandari-min-(1)-medium.webp') }}" alt="Advocate Mr. Nabin Bhandari" class="lawyer-img">
+                    </div>
+                    <div class="online-status">
+                        <span class="dot"></span>
+                        <span class="text">Online</span>
+                    </div>
+                    <h3>Advocate Mr. Nabin Bhandari</h3>
+                    <p class="experience"><i class="far fa-clock"></i> 15 Years Experience</p>
+                    <p class="practice-area"><strong>Practice Area:</strong> Divorce / Family and 5 more</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/nabinnkb" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/in/nabin-bhandari-50a659139/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.linkedin.com/in/nabin-bhandari-50a659139/" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://api.whatsapp.com/send/?phone=9808811027&text&type=phone_number&app_absent=0" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="lawyer-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="lawyer-image">
+                        <img src="{{ url_for('static', filename='sakun-bhandari1630863946-medium.webp') }}" alt="Advocate Sakun Bhandari" class="lawyer-img">
+                    </div>
+                    <div class="online-status">
+                        <span class="dot"></span>
+                        <span class="text">Online</span>
+                    </div>
+                    <h3>Advocate Sakun Bhandari</h3>
+                    <p class="experience"><i class="far fa-clock"></i> 16 Years Experience</p>
+                    <p class="practice-area"><strong>Practice Area:</strong> Divorce / Family and 6 more</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/sakun.bhandari" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/in/lawin-and-partners-903688215/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://api.whatsapp.com/send/?phone=9841933745&text&type=phone_number&app_absent=0" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+                
+                <div class="lawyer-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="lawyer-image">
+                        <img src="{{ url_for('static', filename='1-medium.webp') }}" alt="Advocate Sulochana Dhital" class="lawyer-img">
+                    </div>
+                    <h3>Advocate Sulochana Dhital</h3>
+                    <p class="experience"><i class="far fa-clock"></i> 19 Years Experience</p>
+                    <p class="practice-area"><strong>Practice Area:</strong> Marriage Law / Divorce and 7 more</p>
+                    <div class="social-links">
+                        <a href="https://api.whatsapp.com/send/?phone=9851123056&text&type=phone_number&app_absent=0" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-viber"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-nav" data-aos="fade-up" data-aos-delay="600">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Our Team">
+                </div>
+                <div class="about-text" data-aos="fade-left">
+                    <h2>About Civic-Buddy</h2>
+                    <p>Civic-Buddy was founded in 2023 with a mission to bridge the gap between citizens and local government. We believe that technology can empower communities to solve problems collaboratively.</p>
+                    <p>Our platform is designed to make civic engagement simple, transparent, and effective. Whether you're reporting a pothole or participating in a community decision, Civic-Buddy makes it easy.</p>
+                    <p>We partner with local governments and community organizations to ensure your concerns are heard and addressed promptly.</p>
+                    
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <p class="subtitle">What People Say</p>
+                <h2>Success Stories</h2>
+                <p>Hear from our satisfied users who have successfully resolved their civic issues</p>
+            </div>
+            
+            <div class="testimonial-slider" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Civic-Buddy helped me resolve a long-standing drainage issue in our neighborhood within just two weeks. The platform made it so easy to report and track the progress.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson" class="author-image">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Community Leader, Kathmandu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section faq" id="faq">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about using Civic-Buddy and reporting civic issues.</p>
+            </div>
+            <div class="accordion">
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="accordion-header">
+                        <span>How do I report a civic issue?</span>
+                        <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>To report an issue, click on the "Report an Issue" button on our homepage. You'll be guided through a simple form where you can describe the problem, add photos if available, and pinpoint the location on a map. Our system will then route your report to the appropriate authorities and keep you updated on progress.</p>
+                    </div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="accordion-header">
+                        <span>How long does it take to resolve reported issues?</span>
+                        <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Resolution times vary depending on the type and complexity of the issue. Simple problems like potholes or broken streetlights are typically addressed within 1-2 weeks, while more complex issues may take longer. You can track progress in real-time through your account dashboard, which shows updates from the responsible department.</p>
+                    </div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="accordion-header">
+                        <span>Is there a cost to use Civic-Buddy?</span>
+                        <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Civic-Buddy is completely free for citizens to use. Our platform is supported through partnerships with local governments and community organizations who are committed to improving civic engagement. For legal services, lawyers may charge fees which will be clearly communicated upfront.</p>
+                    </div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="accordion-header">
+                        <span>How can I get involved in community decisions?</span>
+                        <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Our Community Engagement section allows you to participate in polls, vote on local initiatives, and join discussion forums. You can also attend virtual town halls and public meetings listed on our event calendar. Sign up for notifications to stay informed about opportunities to contribute to decisions affecting your neighborhood.</p>
+                    </div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="accordion-header">
+                        <span>What types of issues can I report?</span>
+                        <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>You can report a wide range of civic issues including road and sidewalk problems, public sanitation issues, malfunctioning street lights, public safety concerns, park maintenance, noise complaints, and more. We also provide templates for common legal issues. If you're unsure whether your issue qualifies, feel free to report it anyway and we'll direct it appropriately.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Civic-Buddy</h3>
+                    <p>Empowering communities through technology and civic engagement. Making cities better, one issue at a time.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Lawyers</a></li>
+                        <li><a href="#faq"><i class="fas fa-chevron-right"></i> FAQs</a></li>
+                        <li><a href="{{ url_for('quiz') }}"><i class="fas fa-chevron-right"></i> Quiz</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><a href="{{ url_for('form') }}"><i class="fas fa-chevron-right"></i> Document Filler</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Issue Reporting</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Status Tracking</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Legal Consultation</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Community Forum</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><a href="mailto:info@civicbuddy.com"><i class="fas fa-envelope"></i> info@civicbuddy.com</a></li>
+                        <li><a href="tel:+9775551234567"><i class="fas fa-phone"></i> (555) 123-4567</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Civic Center Dr, Kathmandu</a></li>
+                    </ul>
+                    
+                    <div class="newsletter">
+                        <h4>Subscribe to Newsletter</h4>
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Civic-Buddy. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Icon -->
+    <div class="chatbot-icon" id="chatbot-toggle">
+        <span><i class="fas fa-comment-dots"></i></span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+        
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === this.getAttribute('href')) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        // FAQ Accordion
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                item.classList.toggle('active');
+                
+                // Close other open items
+                document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Chatbot toggle functionality
+        document.getElementById('chatbot-toggle').addEventListener('click', function() {
+            window.location.href='/chat';
+        });
+        
+        // Counter animation for stats
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+        
+        // Initialize counters when section is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Set target values
+                    document.getElementById('issues-resolved').setAttribute('data-target', '1250');
+                    document.getElementById('happy-citizens').setAttribute('data-target', '980');
+                    document.getElementById('active-lawyers').setAttribute('data-target', '85');
+                    document.getElementById('cities-covered').setAttribute('data-target', '12');
+                    
+                    // Start animation
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.querySelector('.about'));
+        
+        // Lawyer carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const lawyersGrid = document.querySelector('.lawyers-grid');
+            const lawyerCards = document.querySelectorAll('.lawyer-card');
+            
+            if (!lawyersGrid || lawyerCards.length === 0) return;
+            
+            // Initialize variables
+            let currentIndex = 0;
+            let cardsPerPage = calculateCardsPerPage();
+            let maxIndex = Math.max(0, lawyerCards.length - cardsPerPage);
+            
+            // Set initial visibility
+            updateCardVisibility();
+            
+            // Add event listeners
+            prevBtn.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCardVisibility();
+                }
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                if (currentIndex < maxIndex) {
+                    currentIndex++;
+                    updateCardVisibility();
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                cardsPerPage = calculateCardsPerPage();
+                maxIndex = Math.max(0, lawyerCards.length - cardsPerPage);
+                currentIndex = Math.min(currentIndex, maxIndex);
+                updateCardVisibility();
+            });
+            
+            // Calculate number of cards to display based on screen size
+            function calculateCardsPerPage() {
+                const viewportWidth = window.innerWidth;
+                
+                if (viewportWidth >= 1200) {
+                    return 4; // Show 4 cards on large screens
+                } else if (viewportWidth >= 992) {
+                    return 3; // Show 3 cards on medium screens
+                } else if (viewportWidth >= 768) {
+                    return 2; // Show 2 cards on small screens
+                } else {
+                    return 1; // Show 1 card on extra small screens
+                }
+            }
+            
+            // Update card visibility based on current index
+            function updateCardVisibility() {
+                lawyerCards.forEach((card, index) => {
+                    if (index >= currentIndex && index < currentIndex + cardsPerPage) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Update button states
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex >= maxIndex;
+                
+                prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+                nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+            }
+        });
+        
+        // Floating element animation with GSAP
+        gsap.to(".floating-element:nth-child(1)", {
+            y: 20,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+        
+        gsap.to(".floating-element:nth-child(2)", {
+            y: 30,
+            duration: 4,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: 0.5
+        });
+        
+        gsap.to(".floating-element:nth-child(3)", {
+            y: 25,
+            duration: 3.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: 1
+        });
+
+        function showTemplatePopup(event) {
+            event.preventDefault();
+            document.getElementById('template-popup').style.display = 'flex';
+        }
+
+        // Close popup when clicking the X button
+        document.querySelector('.close-popup').addEventListener('click', function() {
+            document.getElementById('template-popup').style.display = 'none';
+        });
+
+        // Close popup when clicking outside
+        document.getElementById('template-popup').addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

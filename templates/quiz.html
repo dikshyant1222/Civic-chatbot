@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIVIC-BUDDY Quiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .hidden {
+      display: none;
+    }
+    .quiz-button {
+      transition: all 0.3s ease-in-out;
+    }
+    .quiz-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex items-center justify-center">
+  <div class="max-w-3xl w-full bg-white shadow-2xl rounded-2xl p-8 m-4">
+    <h1 class="text-4xl font-extrabold text-center text-blue-700 mb-8 border-b pb-4">CIVIC-BUDDY Quiz</h1>
+
+    <div id="quiz-container" class="space-y-8"></div>
+
+    <div class="flex justify-between mt-6">
+      <button id="backBtn" class="quiz-button bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-xl font-medium" onclick="prevQuestion()">Back</button>
+      <button id="nextBtn" class="quiz-button bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl font-medium" onclick="nextQuestion()">Proceed</button>
+    </div>
+
+    <div id="result-container" class="hidden text-center mt-10">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Your Score:</h2>
+      <p id="score" class="text-4xl font-extrabold text-green-600"></p>
+      <p id="feedback" class="text-lg mt-2 mb-6 text-gray-700"></p>
+      <div id="review-answers" class="space-y-4 text-left"></div>
+    </div>
+  </div>
+
+  <script>
+    const allQuestions = [  {
+    question: "What is the Constitution of Nepal 2015 also known as?",
+    options: ["People's Constitution", "Democratic Constitution", "Federal Constitution", "Interim Constitution"],
+    correct: 2
+  },
+  {
+    question: "How many fundamental rights are guaranteed in the Constitution of Nepal 2015?",
+    options: ["31", "34", "36", "44"],
+    correct: 1
+  },
+  {
+    question: "What is the supreme law of Nepal?",
+    options: ["Civil Code", "Muluki Ain", "Constitution", "Parliament Act"],
+    correct: 2
+  },
+  {
+    question: "Which article of the Constitution of Nepal provides for the right to equality?",
+    options: ["Article 16", "Article 17", "Article 18", "Article 19"],
+    correct: 2
+  },
+  {
+    question: "Who appoints the Chief Justice of Nepal?",
+    options: ["Prime Minister", "President", "Judicial Council", "Parliament"],
+    correct: 1
+  },
+  {
+    question: "How many types of courts exist in Nepal?",
+    options: ["Two", "Three", "Four", "Five"],
+    correct: 1
+  },
+  {
+    question: "Which court is the highest in Nepal?",
+    options: ["High Court", "Supreme Court", "District Court", "Appellate Court"],
+    correct: 1
+  },
+  {
+    question: "Who is the current President of Nepal? (As of 2025)",
+    options: ["Ram Chandra Poudel", "Bidhya Devi Bhandari", "Sher Bahadur Deuba", "Pushpa Kamal Dahal"],
+    correct: 0
+  },
+  {
+    question: "How long is the term of the President in Nepal?",
+    options: ["4 years", "5 years", "6 years", "7 years"],
+    correct: 1
+  },
+  {
+    question: "Who can issue an ordinance in Nepal?",
+    options: ["Prime Minister", "President", "Chief Justice", "Speaker of Parliament"],
+    correct: 1
+  },
+  {
+    question: "Which legal code replaced the old Muluki Ain in 2018?",
+    options: ["Civil Code", "Penal Code", "Constitution", "New Legal Code"],
+    correct: 0
+  },
+  {
+    question: "What is the minimum age for marriage in Nepal (as per law)?",
+    options: ["16 years", "18 years", "20 years", "22 years"],
+    correct: 2
+  },
+  {
+    question: "Which is the official law-making body of Nepal?",
+    options: ["Judiciary", "Executive", "Parliament", "President"],
+    correct: 2
+  },
+  {
+    question: "Which organization safeguards human rights in Nepal?",
+    options: ["Nepal Bar Association", "Nepal Police", "NHRC", "Supreme Court"],
+    correct: 2
+  },
+  {
+    question: "When was Nepal declared a federal democratic republic?",
+    options: ["2006", "2007", "2008", "2015"],
+    correct: 2
+  },
+  {
+    question: "Which body recommends judges for appointment?",
+    options: ["Bar Association", "Supreme Court", "Judicial Council", "Cabinet"],
+    correct: 2
+  },
+  {
+    question: "What does RTI stand for in legal rights?",
+    options: ["Right to Insurance", "Right to Information", "Right to Inheritance", "Right to Identity"],
+    correct: 1
+  },
+  {
+    question: "Which act deals with children’s rights in Nepal?",
+    options: ["Juvenile Justice Act", "Child Rights Act", "Protection of Children Act", "Minors Act"],
+    correct: 1
+  },
+  {
+    question: "How many provinces are there in Nepal?",
+    options: ["5", "6", "7", "8"],
+    correct: 2
+  },
+  {
+    question: "Which is the largest district of Nepal by area?",
+    options: ["Dolpa", "Rukum", "Taplejung", "Humla"],
+    correct: 0
+  },
+  {
+    question: "Which article of the Constitution guarantees freedom of expression?",
+    options: ["Article 17", "Article 18", "Article 19", "Article 20"],
+    correct: 0
+  },
+  {
+    question: "Nepal follows which form of governance?",
+    options: ["Monarchy", "Presidential", "Federal Parliamentary", "Autocracy"],
+    correct: 2
+  },
+  {
+    question: "Which body is responsible for conducting elections in Nepal?",
+    options: ["Supreme Court", "Home Ministry", "Election Commission", "National Assembly"],
+    correct: 2
+  },
+  {
+    question: "The Constitution of Nepal 2015 replaced which previous constitution?",
+    options: ["Interim Constitution 2007", "Constitution 1990", "Muluki Ain", "Royal Constitution"],
+    correct: 0
+  },
+  {
+    question: "Who signs the bills passed by Parliament into law?",
+    options: ["Prime Minister", "Speaker", "President", "Chief Justice"],
+    correct: 2
+  },
+  {
+    question: "When was the Constitution of Nepal promulgated?",
+    options: ["20th September 2015", "21st November 2015", "15th August 2015", "26th January 2015"],
+    correct: 0
+  },
+  {
+    question: "How many members are there in the House of Representatives of Nepal?",
+    options: ["275", "165", "335", "240"],
+    correct: 0
+  },
+  {
+    question: "What is the maximum punishment for murder in Nepal?",
+    options: ["20 years", "25 years", "Life imprisonment", "Death penalty"],
+    correct: 2
+  },
+  {
+    question: "Which river is considered the longest in Nepal?",
+    options: ["Koshi", "Gandaki", "Karnali", "Bagmati"],
+    correct: 2
+  },
+  {
+    question: "Which is the apex advisory body on legal matters in Nepal?",
+    options: ["Judicial Council", "Attorney General", "Bar Association", "Constitutional Bench"],
+    correct: 1
+  }]; // Use the full question list as already provided
+
+    let selectedQuestions = [];
+    let currentQuestionIndex = 0;
+    let answers = [];
+
+    function pickRandomQuestions() {
+      selectedQuestions = [...allQuestions]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3);
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+
+      const question = selectedQuestions[currentQuestionIndex];
+
+      const questionDiv = document.createElement('div');
+      questionDiv.classList.add("bg-white", "shadow", "rounded-2xl", "p-6", "border", "border-blue-200");
+      questionDiv.innerHTML = `
+        <h2 class="text-xl font-semibold text-blue-800 mb-4">Q${currentQuestionIndex + 1}: ${question.question}</h2>
+        <form id="questionForm" class="space-y-4">
+          ${question.options.map((opt, i) => `
+            <label class="block bg-gray-50 p-3 rounded-lg border border-gray-200 hover:border-blue-400 cursor-pointer transition-all">
+              <input type="radio" name="answer" value="${i}" class="mr-2" ${answers[currentQuestionIndex] == i ? 'checked' : ''}>
+              ${opt}
+            </label>
+          `).join('')}
+        </form>
+      `;
+      container.appendChild(questionDiv);
+    }
+
+    function nextQuestion() {
+      const selected = document.querySelector('input[name="answer"]:checked');
+      if (!selected) {
+        alert("Please select an answer before proceeding.");
+        return;
+      }
+      answers[currentQuestionIndex] = parseInt(selected.value);
+      if (currentQuestionIndex < selectedQuestions.length - 1) {
+        currentQuestionIndex++;
+        renderQuestion();
+      } else {
+        calculateScore();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+      }
+    }
+
+    function calculateScore() {
+      let score = 0;
+      const reviewContainer = document.getElementById('review-answers');
+      reviewContainer.innerHTML = '';
+
+      selectedQuestions.forEach((q, i) => {
+        const isCorrect = answers[i] === q.correct;
+        if (isCorrect) {
+          score += 10;
+        }
+
+        const reviewItem = document.createElement('div');
+        reviewItem.className = `p-4 rounded-xl border ${isCorrect ? 'bg-green-100 text-green-800 border-green-300' : 'bg-red-100 text-red-800 border-red-300'}`;
+        reviewItem.innerHTML = `
+          <strong>Q${i + 1}:</strong> ${q.question}<br>
+          <strong>Your Answer:</strong> ${q.options[answers[i]] || 'No Answer'}<br>
+          <strong>Correct Answer:</strong> ${q.options[q.correct]}
+        `;
+        reviewContainer.appendChild(reviewItem);
+      });
+
+      document.getElementById('quiz-container').classList.add('hidden');
+      document.getElementById('backBtn').classList.add('hidden');
+      document.getElementById('nextBtn').classList.add('hidden');
+      document.getElementById('result-container').classList.remove('hidden');
+
+      document.getElementById('score').innerText = `${score} / 30`;
+      document.getElementById('feedback').innerText = score === 30
+        ? "Excellent! You got all answers right."
+        : score >= 20
+          ? "Good job!"
+          : "Keep trying!";
+    }
+
+    pickRandomQuestions();
+  </script>
+</body>
+
+</html>

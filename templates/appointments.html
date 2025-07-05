@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalConnect - Appointments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 90%;
+            max-width: 1200px;
+            min-height: 600px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .auth-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .dashboard-title {
+            font-size: 2em;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: #3498db;
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .card-description {
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+
+        .form-toggle {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-toggle a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        /* Calendar Styles */
+        .calendar-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .calendar-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .calendar-nav-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 700;
+            color: #2c3e50;
+            padding: 15px 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .calendar-day {
+            min-height: 100px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .calendar-day:hover {
+            background: #e3f2fd;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-day.today {
+            background: #e3f2fd;
+            border: 2px solid #3498db;
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.4;
+        }
+
+        .calendar-day.has-events {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .calendar-day-number {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .calendar-event {
+            background: #3498db;
+            color: white;
+            font-size: 0.75em;
+            padding: 3px 6px;
+            border-radius: 4px;
+            margin-bottom: 3px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .calendar-event.important {
+            background: #e74c3c;
+        }
+
+        /* Event Form Styles */
+        .event-form {
+            display: none;
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .event-form h4 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .event-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .event-form input,
+        .event-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .event-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .event-form-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .save-btn {
+            background: #27ae60;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            background: #95a5a6;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                margin: 20px;
+            }
+            
+            .calendar-grid {
+                gap: 5px;
+            }
+            
+            .calendar-day {
+                min-height: 80px;
+                padding: 8px;
+            }
+            
+            .calendar-nav {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .calendar-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        .event-list {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .event-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .event-item:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .event-item-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .event-item-description {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .event-item-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-event-btn {
+            background: #f39c12;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            cursor: pointer;
+        }
+
+        .delete-event-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            cursor: pointer;
+        }
+
+        .event-priority {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .event-priority input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .calendar-event.important {
+            background: #e74c3c;
+            font-weight: bold;
+        }
+
+        .event-item.important {
+            border-left-color: #e74c3c;
+        }
+
+        .event-item.important .event-item-title {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚖️ LegalConnect</h1>
+            <p>Appointment Scheduler</p>
+        </div>
+
+        <div class="content">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h3 class="calendar-title" id="calendar-month-year">Month Year</h3>
+                    <div class="calendar-nav">
+                        <button class="calendar-nav-btn" onclick="changeMonth(-1)">← Previous</button>
+                        <button class="calendar-nav-btn" onclick="goToToday()">Today</button>
+                        <button class="calendar-nav-btn" onclick="changeMonth(1)">Next →</button>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid" id="calendar-days-header">
+                    <!-- Day headers will be inserted here -->
+                </div>
+                
+                <div class="calendar-grid" id="calendar-days">
+                    <!-- Calendar days will be inserted here -->
+                </div>
+                
+                <div id="event-form" class="event-form">
+                    <h4 id="event-form-title">Add New Appointment</h4>
+                    <input type="hidden" id="event-date">
+                    <input type="hidden" id="event-id">
+                    
+                    <div class="form-group">
+                        <label for="event-title">Appointment Title *</label>
+                        <input type="text" id="event-title" required placeholder="Enter appointment title">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-time">Time</label>
+                        <input type="time" id="event-time">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-description">Description/Notes</label>
+                        <textarea id="event-description" placeholder="Add any additional notes or details..."></textarea>
+                    </div>
+                    
+                    <div class="event-priority">
+                        <input type="checkbox" id="event-important">
+                        <label for="event-important">Mark as Important</label>
+                    </div>
+                    
+                    <div class="event-form-buttons">
+                        <button class="save-btn" onclick="saveEvent()">Save Appointment</button>
+                        <button class="cancel-btn" onclick="closeEventForm()">Cancel</button>
+                    </div>
+                </div>
+
+                <div id="event-list" class="event-list" style="display: none;">
+                    <h4 id="event-list-title">Events for Selected Date</h4>
+                    <div id="event-list-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Application state
+        let currentUser = null;
+        let currentDate = new Date();
+        let events = {};
+        let editingEventId = null;
+        
+        // Sample events data
+        function initializeSampleEvents() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const nextWeek = new Date(today);
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            
+            events = {
+                [formatDateKey(today)]: [
+                    { 
+                        id: 'evt1', 
+                        title: "Client Consultation", 
+                        description: "Meeting with John Doe about contract dispute. Review case documents and prepare legal strategy.",
+                        time: "09:00",
+                        important: true
+                    },
+                    { 
+                        id: 'evt2', 
+                        title: "Court Appearance", 
+                        description: "Case #12345 at District Court - Motion hearing",
+                        time: "14:30",
+                        important: true
+                    }
+                ],
+                [formatDateKey(tomorrow)]: [
+                    { 
+                        id: 'evt3', 
+                        title: "Document Review", 
+                        description: "Review contract for Smith & Co. - Focus on liability clauses",
+                        time: "10:00",
+                        important: false
+                    }
+                ],
+                [formatDateKey(nextWeek)]: [
+                    { 
+                        id: 'evt4', 
+                        title: "Deposition", 
+                        description: "Plaintiff deposition in Anderson vs. Tech Corp case",
+                        time: "13:00",
+                        important: true
+                    }
+                ]
+            };
+        }
+
+        // DOM elements
+        const authSection = document.getElementById('auth-section');
+        const lawyerDashboard = document.getElementById('lawyer-dashboard');
+        const calendarSection = document.getElementById('calendar-section');
+        const calendarDaysHeader = document.getElementById('calendar-days-header');
+        const calendarDays = document.getElementById('calendar-days');
+        const calendarMonthYear = document.getElementById('calendar-month-year');
+        const eventForm = document.getElementById('event-form');
+        const eventList = document.getElementById('event-list');
+        const eventListContent = document.getElementById('event-list-content');
+        const eventListTitle = document.getElementById('event-list-title');
+
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSampleEvents();
+            
+            // Set up day headers
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            calendarDaysHeader.innerHTML = days.map(day => 
+                `<div class="calendar-day-header">${day}</div>`
+            ).join('');
+            
+            // Render initial calendar
+            renderCalendar();
+        });
+
+        function handleSignIn() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation
+            if (!email || !password) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showNotification('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            if (password.length < 3) {
+                showNotification('Password must be at least 3 characters long', 'error');
+                return;
+            }
+            
+            // Simulate authentication
+            currentUser = {
+                email: email,
+                name: email.split('@')[0],
+                authenticated: true
+            };
+            
+            showNotification('Successfully signed in!', 'success');
+            
+            // Show dashboard
+            setTimeout(() => {
+                showDashboard();
+            }, 500);
+        }
+
+        function showDashboard() {
+            authSection.style.display = 'none';
+            lawyerDashboard.style.display = 'block';
+        }
+
+        function openSection(section) {
+            // Hide all sections first
+            document.querySelectorAll('.calendar-container').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Hide dashboard grid
+            document.querySelector('.dashboard-grid').style.display = 'none';
+            
+            if (section === 'calendar') {
+                calendarSection.style.display = 'block';
+                renderCalendar();
+            } else {
+                // For other sections, just show an alert
+                const sectionNames = {
+                    'cases': 'Your Cases',
+                    'case-studies': 'Case Studies',
+                    'earnings': 'Earnings',
+                    'profile': 'Profile & Settings'
+                };
+                
+                alert(`Opening ${sectionNames[section]} section...\n\nIn a full implementation, this would navigate to the ${sectionNames[section]} page with full functionality.`);
+                
+                // Show dashboard grid again
+                document.querySelector('.dashboard-grid').style.display = 'grid';
+            }
+        }
+
+        function closeSections() {
+            // Hide all sections
+            document.querySelectorAll('.calendar-container').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Show dashboard grid
+            document.querySelector('.dashboard-grid').style.display = 'grid';
+            
+            // Close any open forms
+            closeEventForm();
+            eventList.style.display = 'none';
+        }
+
+        function logout() {
+            // Reset application state
+            currentUser = null;
+            
+            // Hide dashboard
+            lawyerDashboard.style.display = 'none';
+            
+            // Show auth section
+            authSection.style.display = 'block';
+            
+            // Show dashboard grid
+            document.querySelector('.dashboard-grid').style.display = 'grid';
+            
+            // Reset form
+            document.getElementById('auth-form').reset();
+        }
+
+        // Calendar functions
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Set month and year title
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+            calendarMonthYear.textContent = `${monthNames[month]} ${year}`;
+            
+            // Get first day of month and total days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const prevMonthDays = new Date(year, month, 0).getDate();
+            
+            // Clear calendar
+            calendarDays.innerHTML = '';
+            
+            // Add days from previous month
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const day = prevMonthDays - i;
+                const date = new Date(year, month - 1, day);
+                addCalendarDay(date, true);
+            }
+            
+            // Add days from current month
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const isToday = date.getDate() === today.getDate() && 
+                               date.getMonth() === today.getMonth() && 
+                               date.getFullYear() === today.getFullYear();
+                addCalendarDay(date, false, isToday);
+            }
+            
+            // Add days from next month
+            const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+            const nextMonthDays = totalCells - (firstDay + daysInMonth);
+            
+            for (let day = 1; day <= nextMonthDays; day++) {
+                const date = new Date(year, month + 1, day);
+                addCalendarDay(date, true);
+            }
+        }
+        
+        function addCalendarDay(date, isOtherMonth, isToday = false) {
+            const day = date.getDate();
+            const dateKey = formatDateKey(date);
+            const dayEvents = events[dateKey] || [];
+            
+            const dayElement = document.createElement('div');
+            const hasEvents = dayEvents.length > 0;
+            
+            dayElement.className = `calendar-day ${isOtherMonth ? 'other-month' : ''} ${isToday ? 'today' : ''} ${hasEvents ? 'has-events' : ''}`;
+            dayElement.onclick = () => openEventForm(date);
+            
+            // Show events (max 3 visible)
+            const eventsHtml = dayEvents.slice(0, 3).map(event => {
+                const timeStr = event.time ? ` ${event.time}` : '';
+                return `<div class="calendar-event ${event.important ? 'important' : ''}" 
+                            title="${event.title}${timeStr}${event.description ? ' - ' + event.description : ''}"
+                            onclick="event.stopPropagation(); viewEventDetails('${dateKey}')">
+                            ${event.title}${timeStr}
+                        </div>`;
+            }).join('');
+            
+            const moreEventsHtml = dayEvents.length > 3 ? 
+                `<div class="calendar-event" onclick="event.stopPropagation(); viewEventDetails('${dateKey}')">+${dayEvents.length - 3} more</div>` : '';
+            
+            dayElement.innerHTML = `
+                <div class="calendar-day-number">${day}</div>
+                ${eventsHtml}
+                ${moreEventsHtml}
+            `;
+            
+            document.getElementById('calendar-days').appendChild(dayElement);
+        }
+        
+        function changeMonth(offset) {
+            currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + offset, 1);
+            renderCalendar();
+        }
+        
+        function goToToday() {
+            currentDate = new Date();
+            renderCalendar();
+        }
+        
+        function openEventForm(date) {
+            const dateKey = formatDateKey(date);
+            const dateString = date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                month: 'long', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+            
+            // Reset form
+            editingEventId = null;
+            document.getElementById('event-form-title').textContent = `Add Appointment for ${dateString}`;
+            document.getElementById('event-date').value = dateKey;
+            document.getElementById('event-id').value = '';
+            document.getElementById('event-title').value = '';
+            document.getElementById('event-time').value = '';
+            document.getElementById('event-description').value = '';
+            document.getElementById('event-important').checked = false;
+            
+            document.getElementById('event-form').style.display = 'block';
+            document.getElementById('event-list').style.display = 'none';
+        }
+        
+        function viewEventDetails(dateKey) {
+            const dayEvents = events[dateKey] || [];
+            const date = new Date(dateKey);
+            const dateString = date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                month: 'long', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+            
+            eventListTitle.textContent = `Appointments for ${dateString}`;
+            
+            if (dayEvents.length === 0) {
+                eventListContent.innerHTML = '<p style="color: #7f8c8d; font-style: italic;">No appointments scheduled for this date.</p>';
+            } else {
+                eventListContent.innerHTML = dayEvents.map(event => `
+                    <div class="event-item ${event.important ? 'important' : ''}">
+                        <div class="event-item-title">
+                            ${event.title} ${event.time ? `at ${event.time}` : ''}
+                            ${event.important ? ' (Important)' : ''}
+                        </div>
+                        <div class="event-item-description">${event.description || 'No description'}</div>
+                        <div class="event-item-actions">
+                            <button class="edit-event-btn" onclick="editEvent('${dateKey}', '${event.id}')">Edit</button>
+                            <button class="delete-event-btn" onclick="deleteEvent('${dateKey}', '${event.id}')">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('event-form').style.display = 'none';
+            eventList.style.display = 'block';
+        }
+        
+        function editEvent(dateKey, eventId) {
+            const dayEvents = events[dateKey] || [];
+            const event = dayEvents.find(e => e.id === eventId);
+            
+            if (!event) return;
+            
+            const date = new Date(dateKey);
+            const dateString = date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                month: 'long', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+            
+            // Populate form with event data
+            document.getElementById('event-form-title').textContent = `Edit Appointment for ${dateString}`;
+            document.getElementById('event-date').value = dateKey;
+            document.getElementById('event-id').value = eventId;
+            document.getElementById('event-title').value = event.title;
+            document.getElementById('event-time').value = event.time || '';
+            document.getElementById('event-description').value = event.description || '';
+            document.getElementById('event-important').checked = event.important || false;
+            
+            document.getElementById('event-list').style.display = 'none';
+            document.getElementById('event-form').style.display = 'block';
+        }
+        
+        function deleteEvent(dateKey, eventId) {
+            if (confirm('Are you sure you want to delete this appointment?')) {
+                const dayEvents = events[dateKey] || [];
+                events[dateKey] = dayEvents.filter(e => e.id !== eventId);
+                
+                if (events[dateKey].length === 0) {
+                    delete events[dateKey];
+                }
+                
+                renderCalendar();
+                viewEventDetails(dateKey);
+            }
+        }
+        
+        function closeEventForm() {
+            eventForm.style.display = 'none';
+            eventList.style.display = 'none';
+            editingEventId = null;
+        }
+        
+        function saveEvent() {
+            const dateKey = document.getElementById('event-date').value;
+            const eventId = document.getElementById('event-id').value;
+            const title = document.getElementById('event-title').value.trim();
+            const time = document.getElementById('event-time').value;
+            const description = document.getElementById('event-description').value.trim();
+            const important = document.getElementById('event-important').checked;
+            
+            if (!title) {
+                alert('Please enter an appointment title');
+                return;
+            }
+            
+            // Initialize the events array for this date if it doesn't exist
+            if (!events[dateKey]) {
+                events[dateKey] = [];
+            }
+            
+            const eventData = {
+                id: eventId || generateEventId(),
+                title: title,
+                time: time,
+                description: description,
+                important: important
+            };
+            
+            if (eventId) {
+                // Update existing event
+                const eventIndex = events[dateKey].findIndex(e => e.id === eventId);
+                if (eventIndex !== -1) {
+                    events[dateKey][eventIndex] = eventData;
+                }
+            } else {
+                // Add new event
+                events[dateKey].push(eventData);
+            }
+            
+            renderCalendar();
+            closeEventForm();
+            viewEventDetails(dateKey);
+        }
+        
+        function generateEventId() {
+            return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+        
+        function formatDateKey(date) {
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+
+        // Utility functions
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 10px;
+                color: white;
+                font-weight: 600;
+                z-index: 1000;
+                opacity: 0;
+                transform: translateX(100%);
+                transition: all 0.3s ease;
+                max-width: 300px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            `;
+            
+            // Set color based on type
+            if (type === 'error') {
+                notification.style.background = '#e74c3c';
+            } else if (type === 'success') {
+                notification.style.background = '#27ae60';
+            } else {
+                notification.style.background = '#3498db';
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+
+</body>
+</html>

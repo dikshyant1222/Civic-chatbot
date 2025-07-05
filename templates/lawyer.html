@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalConnect | Book Appointment</title>
+    <style>
+        :root {
+            --primary: #6d28d9;
+            --primary-dark: #5b21b6;
+            --primary-light: #8b5cf6;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --error: #ef4444;
+            --radius-lg: 16px;
+            --radius-md: 8px;
+            --radius-sm: 4px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #8b5cf6;
+                --primary-dark: #7c3aed;
+                --text: #f8fafc;
+                --text-light: #94a3b8;
+                --bg: #0f172a;
+                --card-bg: #1e293b;
+                --border: #334155;
+                --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.25rem;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+        .hero {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .hero p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.125rem;
+        }
+
+        .booking-container {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .booking-steps {
+            flex: 1;
+            max-width: 300px;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .step {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+        }
+
+        .step.active {
+            background-color: rgba(109, 40, 217, 0.1);
+            border-left: 3px solid var(--primary);
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .step.active .step-number {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .step-text {
+            flex: 1;
+        }
+
+        .step-text h3 {
+            font-size: 0.9375rem;
+            margin-bottom: 4px;
+        }
+
+        .step-text p {
+            font-size: 0.8125rem;
+            color: var(--text-light);
+        }
+
+        .booking-form {
+            flex: 2;
+            background-color: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 24px;
+            color: var(--primary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background-color: var(--card-bg);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.9375rem;
+            transition: all 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.2);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input {
+            width: auto;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-size: 0.9375rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(109, 40, 217, 0.1);
+        }
+
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .waiting-screen {
+            display: none;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .waiting-screen.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(109, 40, 217, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            margin: 0 auto 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .waiting-screen h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        .waiting-screen p {
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: var(--border);
+            border-radius: 3px;
+            margin: 0 auto 40px;
+            max-width: 400px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .booking-container {
+                flex-direction: column;
+            }
+
+            .booking-steps {
+                max-width: 100%;
+                position: static;
+                margin-bottom: 32px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .booking-form {
+                padding: 24px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+
+    <main class="container">
+        <section class="hero">
+            <h1>Book a Legal Consultation</h1>
+            <p>Schedule an appointment with our expert lawyers for personalized legal advice tailored to your specific needs.</p>
+        </section>
+
+        <div class="booking-container">
+            <div class="booking-steps">
+                <div class="step active" id="step1-indicator">
+                    <div class="step-number">1</div>
+                    <div class="step-text">
+                        <h3>Personal Information</h3>
+                        <p>Tell us about yourself</p>
+                    </div>
+                </div>
+                <div class="step" id="step2-indicator">
+                    <div class="step-number">2</div>
+                    <div class="step-text">
+                        <h3>Appointment Details</h3>
+                        <p>Choose date and time</p>
+                    </div>
+                </div>
+                <div class="step" id="step3-indicator">
+                    <div class="step-number">3</div>
+                    <div class="step-text">
+                        <h3>Case Information</h3>
+                        <p>Describe your legal matter</p>
+                    </div>
+                </div>
+                <div class="step" id="step4-indicator">
+                    <div class="step-number">4</div>
+                    <div class="step-text">
+                        <h3>Confirmation</h3>
+                        <p>Review and submit</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-form">
+                <!-- Personal Information Section -->
+                <div class="form-section active" id="section1">
+                    <h2 class="section-title">Personal Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" onclick="nextSection(1)">Continue</button>
+                    </div>
+                </div>
+
+                <!-- Appointment Details Section -->
+                <div class="form-section" id="section2">
+                    <h2 class="section-title">Appointment Details</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="lawyer">Select Lawyer</label>
+                            <select id="lawyer" required>
+                                <option value="">Choose a lawyer</option>
+                                <option value="john-doe">John Doe (Corporate Law)</option>
+                                <option value="jane-smith">Jane Smith (Family Law)</option>
+                                <option value="mike-johnson">Mike Johnson (Criminal Law)</option>
+                                <option value="sarah-williams">Sarah Williams (Real Estate)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Appointment Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Preferred Time</label>
+                            <select id="time" required>
+                                <option value="">Select time</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Meeting Type</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="in-person" name="meetingType" value="in-person" checked>
+                                    <label for="in-person">In-Person</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="virtual" name="meetingType" value="virtual">
+                                    <label for="virtual">Virtual</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" onclick="prevSection(2)">Back</button>
+                        <button class="btn btn-primary" onclick="nextSection(2)">Continue</button>
+                    </div>
+                </div>
+
+                <!-- Case Information Section -->
+                <div class="form-section" id="section3">
+                    <h2 class="section-title">Case Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="caseType">Case Type</label>
+                            <select id="caseType" required>
+                                <option value="">Select case type</option>
+                                <option value="family">Family Law</option>
+                                <option value="corporate">Corporate Law</option>
+                                <option value="criminal">Criminal Law</option>
+                                <option value="real-estate">Real Estate</option>
+                                <option value="immigration">Immigration</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="description">Case Description</label>
+                            <textarea id="description" placeholder="Briefly describe your legal matter..." required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="documents">Upload Documents (Optional)</label>
+                            <input type="file" id="documents" multiple>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" onclick="prevSection(3)">Back</button>
+                        <button class="btn btn-primary" onclick="nextSection(3)">Continue</button>
+                    </div>
+                </div>
+
+                <!-- Confirmation Section -->
+                <div class="form-section" id="section4">
+                    <h2 class="section-title">Confirm Your Appointment</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <p id="confirm-name">John Doe</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <p id="confirm-email">john@example.com</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <p id="confirm-phone">+1 (555) 123-4567</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Lawyer</label>
+                            <p id="confirm-lawyer">Jane Smith (Family Law)</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Date & Time</label>
+                            <p id="confirm-datetime">June 15, 2023 at 2:00 PM</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Meeting Type</label>
+                            <p id="confirm-meeting-type">In-Person</p>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Case Description</label>
+                            <p id="confirm-description">I need help with a child custody case...</p>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" onclick="prevSection(4)">Back</button>
+                        <button class="btn btn-primary" onclick="submitAppointment()">Confirm & Book</button>
+                    </div>
+                </div>
+
+                <!-- Waiting Screen -->
+                <div class="waiting-screen" id="waitingScreen">
+                    <div class="spinner"></div>
+                    <h2>Booking Your Appointment</h2>
+                    <p>We're securing your time with the lawyer and processing your request. This may take a moment.</p>
+                    <div class="progress-bar">
+                        <div class="progress" id="progressBar"></div>
+                    </div>
+                    <p id="status-message">Connecting to our scheduling system...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+   
+
+    <script>
+        // Current active section
+        let currentSection = 1;
+        
+        // Form data object to store all inputs
+        const formData = {
+            personal: {},
+            appointment: {},
+            case: {}
+        };
+
+        // Initialize the form
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStepIndicators();
+        });
+
+        // Navigate to next section
+        function nextSection(current) {
+            if (!validateSection(current)) return;
+            
+            // Save section data
+            saveSectionData(current);
+            
+            // Hide current section
+            document.getElementById(`section${current}`).classList.remove('active');
+            
+            // Show next section
+            currentSection = current + 1;
+            document.getElementById(`section${currentSection}`).classList.add('active');
+            
+            // If this is the confirmation section, update the preview
+            if (currentSection === 4) {
+                updateConfirmationPreview();
+            }
+            
+            // Update step indicators
+            updateStepIndicators();
+            
+            // Scroll to top of form
+            document.querySelector('.booking-form').scrollTo(0, 0);
+        }
+
+        // Navigate to previous section
+        function prevSection(current) {
+            // Hide current section
+            document.getElementById(`section${current}`).classList.remove('active');
+            
+            // Show previous section
+            currentSection = current - 1;
+            document.getElementById(`section${currentSection}`).classList.add('active');
+            
+            // Update step indicators
+            updateStepIndicators();
+            
+            // Scroll to top of form
+            document.querySelector('.booking-form').scrollTo(0, 0);
+        }
+
+        // Validate current section before proceeding
+        function validateSection(sectionNumber) {
+            let isValid = true;
+            
+            if (sectionNumber === 1) {
+                // Validate personal information
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                
+                if (!firstName || !lastName || !email || !phone) {
+                    alert('Please fill in all required fields');
+                    isValid = false;
+                } else if (!validateEmail(email)) {
+                    alert('Please enter a valid email address');
+                    isValid = false;
+                }
+            } else if (sectionNumber === 2) {
+                // Validate appointment details
+                const lawyer = document.getElementById('lawyer').value;
+                const date = document.getElementById('date').value;
+                const time = document.getElementById('time').value;
+                
+                if (!lawyer || !date || !time) {
+                    alert('Please fill in all appointment details');
+                    isValid = false;
+                }
+            } else if (sectionNumber === 3) {
+                // Validate case information
+                const caseType = document.getElementById('caseType').value;
+                const description = document.getElementById('description').value.trim();
+                
+                if (!caseType || !description) {
+                    alert('Please provide case type and description');
+                    isValid = false;
+                }
+            }
+            
+            return isValid;
+        }
+
+        // Save data from current section
+        function saveSectionData(sectionNumber) {
+            if (sectionNumber === 1) {
+                formData.personal = {
+                    firstName: document.getElementById('firstName').value.trim(),
+                    lastName: document.getElementById('lastName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    phone: document.getElementById('phone').value.trim()
+                };
+            } else if (sectionNumber === 2) {
+                formData.appointment = {
+                    lawyer: document.getElementById('lawyer').value,
+                    lawyerText: document.getElementById('lawyer').options[document.getElementById('lawyer').selectedIndex].text,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    timeText: document.getElementById('time').options[document.getElementById('time').selectedIndex].text,
+                    meetingType: document.querySelector('input[name="meetingType"]:checked').value
+                };
+            } else if (sectionNumber === 3) {
+                formData.case = {
+                    caseType: document.getElementById('caseType').value,
+                    caseTypeText: document.getElementById('caseType').options[document.getElementById('caseType').selectedIndex].text,
+                    description: document.getElementById('description').value.trim(),
+                    documents: document.getElementById('documents').files
+                };
+            }
+        }
+
+        // Update the step indicators
+        function updateStepIndicators() {
+            for (let i = 1; i <= 4; i++) {
+                const step = document.getElementById(`step${i}-indicator`);
+                if (i < currentSection) {
+                    step.classList.remove('active');
+                    step.classList.add('completed');
+                    step.querySelector('.step-number').textContent = '✓';
+                } else if (i === currentSection) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                    step.querySelector('.step-number').textContent = i;
+                } else {
+                    step.classList.remove('active', 'completed');
+                    step.querySelector('.step-number').textContent = i;
+                }
+            }
+        }
+
+        // Update confirmation preview with collected data
+        function updateConfirmationPreview() {
+            document.getElementById('confirm-name').textContent = 
+                `${formData.personal.firstName} ${formData.personal.lastName}`;
+            document.getElementById('confirm-email').textContent = formData.personal.email;
+            document.getElementById('confirm-phone').textContent = formData.personal.phone;
+            document.getElementById('confirm-lawyer').textContent = formData.appointment.lawyerText;
+            
+            // Format date
+            const dateObj = new Date(formData.appointment.date);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = dateObj.toLocaleDateString('en-US', options);
+            
+            document.getElementById('confirm-datetime').textContent = 
+                `${formattedDate} at ${formData.appointment.timeText}`;
+            
+            document.getElementById('confirm-meeting-type').textContent = 
+                formData.appointment.meetingType === 'in-person' ? 'In-Person' : 'Virtual';
+            
+            document.getElementById('confirm-description').textContent = formData.case.description;
+        }
+
+        // Submit the appointment
+        function submitAppointment() {
+            // Show waiting screen
+            document.getElementById('section4').classList.remove('active');
+            document.getElementById('waitingScreen').classList.add('active');
+            
+            // Simulate processing
+            simulateProcessing();
+        }
+
+        // Simulate the appointment booking process
+        function simulateProcessing() {
+            const statusMessages = [
+                "Connecting to our scheduling system...",
+                "Checking lawyer availability...",
+                "Securing your time slot...",
+                "Processing payment information...",
+                "Generating confirmation...",
+                "Almost done..."
+            ];
+            
+            const progressBar = document.getElementById('progressBar');
+            const statusElement = document.getElementById('status-message');
+            
+            let progress = 0;
+            let currentMessage = 0;
+            
+            // Update progress every 1.5 seconds
+            const interval = setInterval(() => {
+                progress += 20;
+                currentMessage = Math.min(currentMessage + 1, statusMessages.length - 1);
+                
+                progressBar.style.width = `${Math.min(progress, 100)}%`;
+                statusElement.textContent = statusMessages[currentMessage];
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        // Redirect to confirmation page (in a real app)
+                        alert('Appointment booked successfully! A confirmation has been sent to your email.');
+                        // Reset form for demo purposes
+                        resetForm();
+                    }, 1500);
+                }
+            }, 1500);
+        }
+
+        // Reset the form after submission
+        function resetForm() {
+            // Reset all form fields
+            document.getElementById('firstName').value = '';
+            document.getElementById('lastName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('lawyer').value = '';
+            document.getElementById('date').value = '';
+            document.getElementById('time').value = '';
+            document.getElementById('caseType').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('documents').value = '';
+            
+            // Reset to first section
+            document.getElementById('waitingScreen').classList.remove('active');
+            document.getElementById('section4').classList.remove('active');
+            document.getElementById('section1').classList.add('active');
+            
+            // Reset progress
+            document.getElementById('progressBar').style.width = '0%';
+            
+            // Reset current section
+            currentSection = 1;
+            updateStepIndicators();
+            
+            // Reset form data
+            formData.personal = {};
+            formData.appointment = {};
+            formData.case = {};
+        }
+
+        // Helper function to validate email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>

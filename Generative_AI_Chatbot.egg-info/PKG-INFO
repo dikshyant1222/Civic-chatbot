@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: Generative-AI-Chatbot
+Version: 0.1.0
+Summary: Generative AI Chatbot using LangChain and Pinecone
+Author: Dikshyant Poudel
+Author-email: zoddikshyant@gmail.com
+Requires-Python: >=3.8
+Requires-Dist: sentence-transformers==2.2.2
+Requires-Dist: langchain
+Requires-Dist: flask
+Requires-Dist: pypdf
+Requires-Dist: python-dotenv
+Requires-Dist: pinecone[grpc]
+Requires-Dist: langchain-pinecone
+Requires-Dist: langchain_community
+Requires-Dist: langchain_openai
+Requires-Dist: langchain_experimental
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
