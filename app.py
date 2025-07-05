@@ -34,12 +34,12 @@ app.config['AUDIO_FOLDER'] = 'static/audio'
 # Ensure upload directories exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['AUDIO_FOLDER'], exist_ok=True)
-
+load_dotenv()
 # Set up environment variables
 PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
-os.environ["PINECONE_API_KEY"] = PINECONE_API_KEY
-os.environ["OPENAI_API_KEY"] = GROQ_API_KEY
+os.environ["PINECONE_API_KEY"] =PINECONE_API_KEY
+os.environ["GROQ_API_KEY"] =GROQ_API_KEY
 
 # Memory storage - In production, use Redis or database
 conversation_memories = {}
