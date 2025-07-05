@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, Response, stream_with_context, send_file, session
+from flask import Flask, render_template, request, jsonify, Response, stream_with_context, send_file, session, redirect, url_for
 import sys
 import os
 import re
@@ -232,7 +232,60 @@ def home():
     # Clean up old memories periodically
     cleanup_old_memories()
     
+    return render_template("landing.html")
+
+
+# Helper to strip out <think> tags
+def clean_response(text):
+    # Remove <think> tags
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL)
+    # Remove **, ##, and -- symbols
+    text = re.sub(r"(\*\*|##|--)", "", text)
+    return text.strip()
+
+@app.route('/chat')
+def chat():
     return render_template("chat.html")
+
+@app.route('/landing')
+def landing():
+    return render_template("landing.html")
+
+@app.route('/lawyer_portal')
+def lawyer_portal():
+    return render_template('lawyer_portal.html')
+
+
+@app.route('/lawyer', methods=['GET', 'POST'])
+def lawyer():
+    if request.method == 'POST':
+        # Here you can capture form data and process it
+        name = request.form.get('name')
+        email = request.form.get('email')
+        area = request.form.get('area')
+        details = request.form.get('details')
+
+        # For now, just print to console (or store in DB/send email etc.)
+        print(f"Name: {name}, Email: {email}, Area: {area}, Details: {details}")
+
+        return redirect(url_for('home'))
+
+    return render_template('lawyer.html')
+
+@app.route('/mycases')
+def mycases():
+    return render_template('mycases.html')
+@app.route('/cv')
+def cv():
+    return render_template('cv.html')
+
+@app.route('/form')
+def form():
+    return render_template('form.html')
+
+@app.route('/case_study')
+def case_study():
+    return render_template('case_study.html')
 
 # Helper to strip out <think> tags
 def clean_response(text):
@@ -248,7 +301,7 @@ def clean_response(text):
     return text.strip()
 
 @app.route("/get_response", methods=["POST"])
-def chat():
+def get_chat_response():
     msg = request.form["msg"]
     response_type = request.form.get("response_type", "normal")
     memory_type = request.form.get("memory_type", "buffer")  # "buffer" or "window"
@@ -289,6 +342,13 @@ def chat():
     except Exception as e:
         print(f"Error processing request: {str(e)}")
         return "I'm sorry, I encountered an error while processing your request. Please try again."
+
+@app.route("/quiz")
+def quiz():
+    return render_template("quiz.html")
+@app.route("/appointments")
+def appointments():
+    return render_template("appointments.html")
 
 @app.route("/stream_response", methods=["POST"])
 def stream_chat():

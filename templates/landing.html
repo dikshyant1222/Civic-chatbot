@@ -608,6 +608,7 @@
         
         .about-content {
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 50px;
         }
@@ -1326,8 +1327,8 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About Us</a></li>
                 <li><a href="#services">Lawyers</a></li>
+                <li><a href="#about">About Us</a></li>
                 <li><a href="#faq">FAQs</a></li>
                 <li><a href="{{ url_for('quiz') }}">Quiz</a></li>
                 <li><a href="{{ url_for('lawyer_portal') }}" class="btn-prof">Professional</a></li>
@@ -1456,7 +1457,7 @@
                 </div>
             </div>
             
-            <div class="carousel-nav" data-aos="fade-up" data-aos-delay="600">
+            <div class="carousel-nav" data-aos="fade-up" data-aos-delay="300">
                 <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
                 <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
@@ -1467,42 +1468,17 @@
     <section class="section about" id="about">
         <div class="container">
             <div class="about-content">
-                <div class="about-image" data-aos="fade-right">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Our Team">
-                </div>
+               
+                <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.22/build/spline-viewer.js"></script>
+                <spline-viewer url="https://prod.spline.design/C7LdhwR0AvnOCuBs/scene.splinecode"></spline-viewer>
+                
                 <div class="about-text" data-aos="fade-left">
                     <h2>About Civic-Buddy</h2>
-                    <p>Civic-Buddy was founded in 2023 with a mission to bridge the gap between citizens and local government. We believe that technology can empower communities to solve problems collaboratively.</p>
-                    <p>Our platform is designed to make civic engagement simple, transparent, and effective. Whether you're reporting a pothole or participating in a community decision, Civic-Buddy makes it easy.</p>
-                    <p>We partner with local governments and community organizations to ensure your concerns are heard and addressed promptly.</p>
+                    <p>Civic-Buddy was founded in 2025 with a mission to bridge the gap between citizens and local government. We believe that technology can empower communities to solve problems collaboratively.</p>
+                    <p>Our platform is designed to make civic engagement simple, transparent, and effective. Whether you're wanting to know your rights or book a lawyer, we've got you covered.</p>
+                    <p>We partner with local lawyers and organizations to provide you with the best possible service.</p>
                     
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="section testimonials">
-        <div class="container">
-            <div class="section-title" data-aos="fade-up">
-                <p class="subtitle">What People Say</p>
-                <h2>Success Stories</h2>
-                <p>Hear from our satisfied users who have successfully resolved their civic issues</p>
-            </div>
-            
-            <div class="testimonial-slider" data-aos="fade-up" data-aos-delay="100">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        Civic-Buddy helped me resolve a long-standing drainage issue in our neighborhood within just two weeks. The platform made it so easy to report and track the progress.
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson" class="author-image">
-                        <div class="author-info">
-                            <h4>Sarah Johnson</h4>
-                            <p>Community Leader, Kathmandu</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1519,47 +1495,48 @@
             <div class="accordion">
                 <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="accordion-header">
-                        <span>How do I report a civic issue?</span>
+                        <span>How can I create a child custody agreement without going to court?</span>
                         <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
                     </div>
                     <div class="accordion-content">
-                        <p>To report an issue, click on the "Report an Issue" button on our homepage. You'll be guided through a simple form where you can describe the problem, add photos if available, and pinpoint the location on a map. Our system will then route your report to the appropriate authorities and keep you updated on progress.</p>
+                        <p>Parents can draft mutual terms (custody, visitation) and notarize. For enforcement, file at Family Court.
+                        </p>
                     </div>
                 </div>
                 <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
                     <div class="accordion-header">
-                        <span>How long does it take to resolve reported issues?</span>
+                        <span>How do I apply for a government small business loan?</span>
                         <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
                     </div>
                     <div class="accordion-content">
-                        <p>Resolution times vary depending on the type and complexity of the issue. Simple problems like potholes or broken streetlights are typically addressed within 1-2 weeks, while more complex issues may take longer. You can track progress in real-time through your account dashboard, which shows updates from the responsible department.</p>
+                        <p>"Youth & Small Entrepreneur Self-Employment Fund" offers NPR 200k-1M. Local banks process applications. </p>
                     </div>
                 </div>
                 <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
                     <div class="accordion-header">
-                        <span>Is there a cost to use Civic-Buddy?</span>
+                        <span>How do I register for GST/VAT as a small business?</span>
                         <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
                     </div>
                     <div class="accordion-content">
-                        <p>Civic-Buddy is completely free for citizens to use. Our platform is supported through partnerships with local governments and community organizations who are committed to improving civic engagement. For legal services, lawyers may charge fees which will be clearly communicated upfront.</p>
-                    </div>
-                </div>
-                <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
-                    <div class="accordion-header">
-                        <span>How can I get involved in community decisions?</span>
-                        <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
-                    </div>
-                    <div class="accordion-content">
-                        <p>Our Community Engagement section allows you to participate in polls, vote on local initiatives, and join discussion forums. You can also attend virtual town halls and public meetings listed on our event calendar. Sign up for notifications to stay informed about opportunities to contribute to decisions affecting your neighborhood.</p>
-                    </div>
+                        <p>Apply at Inland Revenue Office with business PAN, citizenship, and rental agreement.
+                        </p>
                 </div>
                 <div class="accordion-item" data-aos="fade-up" data-aos-delay="500">
                     <div class="accordion-header">
-                        <span>What types of issues can I report?</span>
+                        <span>How can I legally protect my startup’s intellectual property?</span>
                         <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
                     </div>
                     <div class="accordion-content">
-                        <p>You can report a wide range of civic issues including road and sidewalk problems, public sanitation issues, malfunctioning street lights, public safety concerns, park maintenance, noise complaints, and more. We also provide templates for common legal issues. If you're unsure whether your issue qualifies, feel free to report it anyway and we'll direct it appropriately.</p>
+                        <p>Trademarks: Register at DOI (Department of Industry). Patents: Nepal IP Office.</p>
+                    </div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="700">
+                    <div class="accordion-header">
+                        <span>How can NGOs apply for government funding?</span>
+                        <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Apply at Social Welfare Council with project proposal and registration documents.</p>
                     </div>
                 </div>
             </div>
@@ -1594,10 +1571,10 @@
                     <h3>Our Services</h3>
                     <ul>
                         <li><a href="{{ url_for('form') }}"><i class="fas fa-chevron-right"></i> Document Filler</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Issue Reporting</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Status Tracking</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Legal Consultation</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Community Forum</a></li>
+                        
+                        
+                        <li><a href="{{ url_for('lawyer_portal')}}"><i class="fas fa-chevron-right"></i> Legal Consultation</a></li>
+                        
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1608,11 +1585,7 @@
                         <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Civic Center Dr, Kathmandu</a></li>
                     </ul>
                     
-                    <div class="newsletter">
-                        <h4>Subscribe to Newsletter</h4>
-                        <input type="email" placeholder="Your email address">
-                        <button type="submit">Subscribe</button>
-                    </div>
+            
                 </div>
             </div>
             <div class="footer-bottom">

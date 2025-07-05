@@ -95,6 +95,25 @@
             color: var(--primary-color);
         }
         
+        .home-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .home-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        
         .chat-container {
             flex: 1;
             display: flex;
@@ -558,6 +577,13 @@
     <div class="chat-header">
         <h1>Legal Assistant</h1>
         <div class="actions">
+            <a href="{{ url_for('landing') }}" class="home-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Home
+            </a>
             <button class="clear-chat-btn" id="clearChatBtn">Clear Chat</button>
         </div>
     </div>

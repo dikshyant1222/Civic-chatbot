@@ -389,6 +389,57 @@
             transition: width 0.3s ease;
         }
 
+        .success-screen {
+            display: none;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .success-screen.active {
+            display: block;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .error-screen {
+            display: none;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .error-screen.active {
+            display: block;
+        }
+
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--error);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .error-screen h2 {
+            color: var(--error);
+            margin-bottom: 16px;
+        }
+
         footer {
             background-color: var(--card-bg);
             border-top: 1px solid var(--border);
@@ -460,12 +511,19 @@
                 padding: 24px;
             }
         }
+
+        .config-note {
+            background-color: rgba(109, 40, 217, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 24px;
+            font-size: 0.875rem;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  
-
     <main class="container">
         <section class="hero">
             <h1>Book a Legal Consultation</h1>
@@ -505,6 +563,7 @@
             </div>
 
             <div class="booking-form">
+
                 <!-- Personal Information Section -->
                 <div class="form-section active" id="section1">
                     <h2 class="section-title">Personal Information</h2>
@@ -531,6 +590,16 @@
                     </div>
                 </div>
 
+                <!-- Add this after the email field in section 1 -->
+<div class="form-group" id="email-verify-group" style="display: none;">
+    <label for="verification-code">Verification Code</label>
+    <div style="display: flex; gap: 10px;">
+        <input type="text" id="verification-code" placeholder="Enter 6-digit code">
+        <button type="button" class="btn btn-secondary" onclick="resendVerificationCode()">Resend Code</button>
+    </div>
+    <p class="verification-status" style="font-size: 0.8rem; margin-top: 5px;"></p>
+</div>
+
                 <!-- Appointment Details Section -->
                 <div class="form-section" id="section2">
                     <h2 class="section-title">Appointment Details</h2>
@@ -539,10 +608,10 @@
                             <label for="lawyer">Select Lawyer</label>
                             <select id="lawyer" required>
                                 <option value="">Choose a lawyer</option>
-                                <option value="john-doe">John Doe (Corporate Law)</option>
-                                <option value="jane-smith">Jane Smith (Family Law)</option>
-                                <option value="mike-johnson">Mike Johnson (Criminal Law)</option>
-                                <option value="sarah-williams">Sarah Williams (Real Estate)</option>
+                                <option value="sakun-bhandari">Advocate Sakun Bhandari (Divorce / Family Law)</option>
+                                <option value="sulochana-dhital">Advocate Sulochana Dhital (Marriage Law / Divorce)</option>
+                                <option value="deepesh-ojha">Advocate Mr. Deepesh Ojha (Aviation)</option>
+                                <option value="nabin-bhandari">Nabin Bhandari (Divorce / Family Law)</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -661,13 +730,57 @@
                     </div>
                     <p id="status-message">Connecting to our scheduling system...</p>
                 </div>
+
+                <!-- Success Screen -->
+                <div class="success-screen" id="successScreen">
+                    <div class="success-icon">✓</div>
+                    <h2>Appointment Confirmed!</h2>
+                    <p>Your appointment has been successfully booked. A confirmation email has been sent to your email address with all the details.</p>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" onclick="resetForm()">Book Another Appointment</button>
+                    </div>
+                </div>
+
+                <!-- Error Screen -->
+                <div class="error-screen" id="errorScreen">
+                    <div class="error-icon">✗</div>
+                    <h2>Booking Failed</h2>
+                    <p id="error-message">There was an error processing your appointment. Please try again or contact support.</p>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" onclick="retryBooking()">Try Again</button>
+                        <button class="btn btn-secondary" onclick="resetForm()">Start Over</button>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-   
-
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <script>
+        // EMAIL CONFIGURATION
+        // Replace these with your actual service credentials
+        const EMAIL_CONFIG = {
+            // Option 1: EmailJS (Recommended for frontend-only solutions)
+            emailjs: {
+                serviceId: 'YOUR_EMAILJS_SERVICE_ID',
+                templateId: 'YOUR_EMAILJS_TEMPLATE_ID',
+                publicKey: 'YOUR_EMAILJS_PUBLIC_KEY'
+            },
+            
+            // Option 2: Your backend endpoint
+            backendEndpoint: 'https://your-backend.com/api/send-email',
+            
+            // Option 3: Formspree (alternative service)
+            formspreeEndpoint: 'https://formspree.io/f/YOUR_FORM_ID'
+        };
+
+        // Initialize EmailJS
+        (function() {
+            emailjs.init(EMAIL_CONFIG.emailjs.publicKey);
+        })();
+
         // Current active section
         let currentSection = 1;
         
@@ -681,7 +794,14 @@
         // Initialize the form
         document.addEventListener('DOMContentLoaded', function() {
             updateStepIndicators();
+            setMinDate();
         });
+
+        // Set minimum date to today
+        function setMinDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').setAttribute('min', today);
+        }
 
         // Navigate to next section
         function nextSection(current) {
